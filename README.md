@@ -25,7 +25,7 @@ https://github.com/ISBE-TUe/IFCtoLBD. This leads to a graph (TTL file) that can 
 While you work on the Barn model first and foremost, similar sample data (RVT, IFC, TTL) is also available here for the Atlas building:
 https://github.com/ISBE-TUe/atlas-building-graph
 
-![]()
+![bimmodel.jpg](bimmodel.jpg)
 
 ### challenge
 While a lot of sample algorithms are available, it is your challenge to bring these together in your solution, and extend these software so that they respond to the data needs for robot navigation and localization (see next steps).
