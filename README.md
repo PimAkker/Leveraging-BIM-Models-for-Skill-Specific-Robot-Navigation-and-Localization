@@ -37,6 +37,10 @@ An indication of how geometry can be stored in a knowledge graph is available in
 
 An indication of how geometry can be extracted from an IFC model (using IfcOpenShell) is available here in a Python Notebook: [Examples/DataExtractionFromIFC](Examples/DataExtractionFromIFC)
 
+[![Robot navigation video]
+(https://img.youtube.com/vi/b7LKU3C6gCQ/maxresdefault.jpg)]
+(https://www.youtube.com/watch?v=b7LKU3C6gCQ)
+
 ### challenge
 Obtaining this geometry can be achieved in a number of ways and using a number of tools. This is part of your challenge. The resulting representation needs to become available in / via the knowledge graph.
 
@@ -56,7 +60,9 @@ Embed the given datasets into robot localization and navigation systems, and fin
 
 ## Enable navigation and task execution (validation)
 ### from similation to reality
-Up to this point, the challenge can be solved using simulators (e.g. Gazebo) and file-based exchange. It needs to be validated in a case that is as realistic as possible, yet does include a specific building and a robot. At this point, there is no such predefined location yet. This can be found as part of the project challenge. This location needs to match with the case of agricultural robots in barns (see [Lely robots](https://www.lely.com/)).
+Up to this point, the challenge can be solved using simulators (e.g. Gazebo) and file-based exchange. It needs to be validated in a case that is as realistic as possible, yet does include a specific building and a robot. At this point, there is no such predefined location yet. This can be found as part of the project challenge. This location needs to match with the case of agricultural robots in barns (see [Lely robots](https://www.lely.com/) - left side of below image).
+
+![lelybots.jpg](lelybots.jpg)
 
 ### challenge
 Perform a structured and realistic experiment that validates your work: a demonstrator. Point clouds and BIM models (RDF graphs) are compared, and navigation is improved / optimized.
