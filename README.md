@@ -65,7 +65,7 @@ Perform a structured and realistic experiment that validates your work: a demons
 ### Oh we have a faulty BIM model
 In many cases, a BIM model does not match in detail with the point cloud model. Of course, moving objects like people and doors are impossible to account for in a BIM model, but also more structural discrepancies exists, such as walls that are slightly in the wrong position, doors that have been added, etc. So your end solution needs to expect such faulty data, as this is not (or hardly) resolvable in practice. And even if it were solvable, safety mechanisms need to be in place.
 
-
+![geometrymismatch.jpg](geometrymismatch.jpg)
 
 Information about this topic can be found here:
 - Article Koen [under review]
