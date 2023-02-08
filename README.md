@@ -67,6 +67,7 @@ In many cases, a BIM model does not match in detail with the point cloud model. 
 
 Information about this topic can be found here:
 - Article Koen [under review]
+- [references/R_D-Report_Student1760602.pdf](R&D Report Jean van der Meer)
 
 ### challenge
 Show how changes in the built environment (displaced wall) can be detected, and reported to the knowledge graph.
