@@ -4,7 +4,7 @@
 
 ## Description
 
-Detailed 3D Building Information Models are available in Revit. Standard practice in the building industry makes such BIM models available. While Revit is a proprietary (closed) commercial BIM tool, a neutral data model and file format is available as well, namely the Industry Foundation Classes (IFC). Such information needs to be made available to robots to ease their localisation and navigation. That is your challenge. This is tested in a barn environment, where agricultural robots need to be able to navigate in their environment and perform actions with cattle present inside the barn.
+Detailed 3D Building Information Models are available in Revit. Standard practice in the building industry makes such BIM models available. While Revit is a proprietary (closed) commercial BIM tool, a neutral data model and file format is available as well, namely the Industry Foundation Classes (IFC). Such information needs to be made available to robots to ease their localisation and navigation. That is your challenge. This is tested in a barn environment, where agricultural robots need to be able to navigate in their environment and perform actions with cattle present inside the barn. This challenge is based on earlier work, that can be previewed here: https://www.youtube.com/watch?v=b7LKU3C6gCQ.
 
 The challenge includes a number of steps, as detailed below.
 
@@ -25,6 +25,8 @@ https://github.com/ISBE-TUe/IFCtoLBD. This leads to a graph (TTL file) that can 
 While you work on the Barn model first and foremost, similar sample data (RVT, IFC, TTL) is also available here for the Atlas building:
 https://github.com/ISBE-TUe/atlas-building-graph
 
+![]()
+
 ### challenge
 While a lot of sample algorithms are available, it is your challenge to bring these together in your solution, and extend these software so that they respond to the data needs for robot navigation and localization (see next steps).
 
@@ -36,10 +38,6 @@ An indication of how geometry can be stored in a knowledge graph is available in
 - de Koning, R., Torta, E., Pauwels, P., Hendrikx, R. W. M., & van de Molengraft, M. J. G. (2021). Queries on Semantic Building Digital Twins for Robot Navigation. In 9th Linked Data in Architecture and Construction Workshop (pp. 32-42). (CEUR Workshop Proceedings; Vol. 3081). CEUR-WS.org. http://ceur-ws.org/Vol-3081/03paper.pdf
 
 An indication of how geometry can be extracted from an IFC model (using IfcOpenShell) is available here in a Python Notebook: [Examples/DataExtractionFromIFC](Examples/DataExtractionFromIFC)
-
-[![Robot navigation video]
-(https://img.youtube.com/vi/b7LKU3C6gCQ/maxresdefault.jpg)]
-(https://www.youtube.com/watch?v=b7LKU3C6gCQ)
 
 ### challenge
 Obtaining this geometry can be achieved in a number of ways and using a number of tools. This is part of your challenge. The resulting representation needs to become available in / via the knowledge graph.
