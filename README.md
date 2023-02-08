@@ -46,8 +46,10 @@ From the IFC and knowledge graphs, navigation and localization maps can be built
 
 - de Koning, R., Torta, E., Pauwels, P., Hendrikx, R. W. M., & van de Molengraft, M. J. G. (2021). Queries on Semantic Building Digital Twins for Robot Navigation. In 9th Linked Data in Architecture and Construction Workshop (pp. 32-42). (CEUR Workshop Proceedings; Vol. 3081). CEUR-WS.org. http://ceur-ws.org/Vol-3081/03paper.pdf
 - Hendrikx, B., Pauwels, P., Torta, E., Bruyninckx, H. P. J., & van de Molengraft, M. J. G. (2021). Connecting Semantic Building Information Models and Robotics: An application to 2D LiDAR-based localization. In 2021 IEEE International Conference on Robotics and Automation, ICRA 2021 (pp. 11654-11660). [9561129] Institute of Electrical and Electronics Engineers. https://doi.org/10.1109/ICRA48506.2021.9561129
-- [under review]
-- [under review]
+- Article Aiyu [under review]
+- Article Pieter [under review]
+
+The following python code shows an example of how such maps could be generated: [Examples/GeneratedGridMaps](Examples/GeneratedGridMaps)
 
 ### challenge
 Embed the given datasets into robot localization and navigation systems, and find a good balance between server-side information, information in ROS, and telemetry data from the robot (laser scans).
@@ -64,6 +66,7 @@ Perform a structured and realistic experiment that validates your work: a demons
 In many cases, a BIM model does not match in detail with the point cloud model. Of course, moving objects like people and doors are impossible to account for in a BIM model, but also more structural discrepancies exists, such as walls that are slightly in the wrong position, doors that have been added, etc. So your end solution needs to expect such faulty data, as this is not (or hardly) resolvable in practice. And even if it were solvable, safety mechanisms need to be in place.
 
 Information about this topic can be found here:
+- Article Koen [under review]
 
 ### challenge
 Show how changes in the built environment (displaced wall) can be detected, and reported to the knowledge graph.
