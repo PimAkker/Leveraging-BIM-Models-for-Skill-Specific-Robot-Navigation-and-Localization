@@ -57,3 +57,4 @@
 /home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_gazebo/CMakeFiles/install/local.dir
 /home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_gazebo/CMakeFiles/rebuild_cache.dir
 /home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_gazebo/CMakeFiles/install.dir
+~
