@@ -1,4 +1,4 @@
-prefix=/home/pim/ITP_project/ros_workspace/devel
+prefix=~/ITP_project/ros_workspace/devel
 
 Name: rosbot_navigation
 Description: Description of rosbot_navigation
