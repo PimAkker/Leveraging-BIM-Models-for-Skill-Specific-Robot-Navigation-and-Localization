@@ -10,7 +10,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/pim/ITP_project/ros_workspace/build/CMakeFiles/3.10.2/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "~/ITP_project/ros_workspace/build/CMakeFiles/3.10.2/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /usr/bin/c++ 
@@ -23,28 +23,28 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/pim/ITP_project/ros_workspace/build/CMakeFiles/3.10.2/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "~/ITP_project/ros_workspace/build/CMakeFiles/3.10.2/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_9a899/fast"
 /usr/bin/make -f CMakeFiles/cmTC_9a899.dir/build.make CMakeFiles/cmTC_9a899.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_9a899.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_9a899.dir/testCCompiler.c.o   -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp/testCCompiler.c
+/usr/bin/cc    -o CMakeFiles/cmTC_9a899.dir/testCCompiler.c.o   -c ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp/testCCompiler.c
 Linking C executable cmTC_9a899
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9a899.dir/link.txt --verbose=1
 /usr/bin/cc      -rdynamic CMakeFiles/cmTC_9a899.dir/testCCompiler.c.o  -o cmTC_9a899 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_b2584/fast"
 /usr/bin/make -f CMakeFiles/cmTC_b2584.dir/build.make CMakeFiles/cmTC_b2584.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_b2584.dir/CMakeCCompilerABI.c.o
 /usr/bin/cc    -o CMakeFiles/cmTC_b2584.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
 Linking C executable cmTC_b2584
@@ -64,16 +64,16 @@ LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/..
 COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_b2584' '-mtune=generic' '-march=x86-64'
  /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cczIGs4V.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_b2584 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_b2584.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_b2584' '-mtune=generic' '-march=x86-64'
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp]
   ignore line: []
   ignore line: [Run Build Command:"/usr/bin/make" "cmTC_b2584/fast"]
   ignore line: [/usr/bin/make -f CMakeFiles/cmTC_b2584.dir/build.make CMakeFiles/cmTC_b2584.dir/build]
-  ignore line: [make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp']
+  ignore line: [make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp']
   ignore line: [Building C object CMakeFiles/cmTC_b2584.dir/CMakeCCompilerABI.c.o]
   ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_b2584.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
   ignore line: [Linking C executable cmTC_b2584]
@@ -157,17 +157,17 @@ Parsed C implicit link information from above output:
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_8ce52/fast"
 /usr/bin/make -f CMakeFiles/cmTC_8ce52.dir/build.make CMakeFiles/cmTC_8ce52.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_8ce52.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_8ce52.dir/feature_tests.c.o   -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.c
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_8ce52.dir/feature_tests.c.o   -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.c
 Linking C executable cmTC_8ce52
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8ce52.dir/link.txt --verbose=1
 /usr/bin/cc      -rdynamic CMakeFiles/cmTC_8ce52.dir/feature_tests.c.o  -o cmTC_8ce52 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -177,17 +177,17 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_c1a6f/fast"
 /usr/bin/make -f CMakeFiles/cmTC_c1a6f.dir/build.make CMakeFiles/cmTC_c1a6f.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_c1a6f.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_c1a6f.dir/feature_tests.c.o   -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.c
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_c1a6f.dir/feature_tests.c.o   -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.c
 Linking C executable cmTC_c1a6f
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c1a6f.dir/link.txt --verbose=1
 /usr/bin/cc      -rdynamic CMakeFiles/cmTC_c1a6f.dir/feature_tests.c.o  -o cmTC_c1a6f 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -197,17 +197,17 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_9aacd/fast"
 /usr/bin/make -f CMakeFiles/cmTC_9aacd.dir/build.make CMakeFiles/cmTC_9aacd.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_9aacd.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_9aacd.dir/feature_tests.c.o   -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.c
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_9aacd.dir/feature_tests.c.o   -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.c
 Linking C executable cmTC_9aacd
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9aacd.dir/link.txt --verbose=1
 /usr/bin/cc      -rdynamic CMakeFiles/cmTC_9aacd.dir/feature_tests.c.o  -o cmTC_9aacd 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -215,25 +215,25 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_8b256/fast"
 /usr/bin/make -f CMakeFiles/cmTC_8b256.dir/build.make CMakeFiles/cmTC_8b256.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_8b256.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_8b256.dir/testCXXCompiler.cxx.o -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+/usr/bin/c++     -o CMakeFiles/cmTC_8b256.dir/testCXXCompiler.cxx.o -c ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
 Linking CXX executable cmTC_8b256
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8b256.dir/link.txt --verbose=1
 /usr/bin/c++       -rdynamic CMakeFiles/cmTC_8b256.dir/testCXXCompiler.cxx.o  -o cmTC_8b256 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_dfb77/fast"
 /usr/bin/make -f CMakeFiles/cmTC_dfb77.dir/build.make CMakeFiles/cmTC_dfb77.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_dfb77.dir/CMakeCXXCompilerABI.cpp.o
 /usr/bin/c++     -o CMakeFiles/cmTC_dfb77.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
 Linking CXX executable cmTC_dfb77
@@ -253,16 +253,16 @@ LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/..
 COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_dfb77' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
  /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccD9aPgf.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_dfb77 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_dfb77.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_dfb77' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp]
   ignore line: []
   ignore line: [Run Build Command:"/usr/bin/make" "cmTC_dfb77/fast"]
   ignore line: [/usr/bin/make -f CMakeFiles/cmTC_dfb77.dir/build.make CMakeFiles/cmTC_dfb77.dir/build]
-  ignore line: [make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp']
+  ignore line: [make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp']
   ignore line: [Building CXX object CMakeFiles/cmTC_dfb77.dir/CMakeCXXCompilerABI.cpp.o]
   ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_dfb77.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [Linking CXX executable cmTC_dfb77]
@@ -342,17 +342,17 @@ Parsed CXX implicit link information from above output:
 
 
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_634b6/fast"
 /usr/bin/make -f CMakeFiles/cmTC_634b6.dir/build.make CMakeFiles/cmTC_634b6.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_634b6.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_634b6.dir/feature_tests.cxx.o -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_634b6.dir/feature_tests.cxx.o -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
 Linking CXX executable cmTC_634b6
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_634b6.dir/link.txt --verbose=1
 /usr/bin/c++       -rdynamic CMakeFiles/cmTC_634b6.dir/feature_tests.cxx.o  -o cmTC_634b6 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -415,17 +415,17 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_ebd97/fast"
 /usr/bin/make -f CMakeFiles/cmTC_ebd97.dir/build.make CMakeFiles/cmTC_ebd97.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_ebd97.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_ebd97.dir/feature_tests.cxx.o -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_ebd97.dir/feature_tests.cxx.o -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
 Linking CXX executable cmTC_ebd97
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ebd97.dir/link.txt --verbose=1
 /usr/bin/c++       -rdynamic CMakeFiles/cmTC_ebd97.dir/feature_tests.cxx.o  -o cmTC_ebd97 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -488,17 +488,17 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_23d2e/fast"
 /usr/bin/make -f CMakeFiles/cmTC_23d2e.dir/build.make CMakeFiles/cmTC_23d2e.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_23d2e.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_23d2e.dir/feature_tests.cxx.o -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_23d2e.dir/feature_tests.cxx.o -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
 Linking CXX executable cmTC_23d2e
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_23d2e.dir/link.txt --verbose=1
 /usr/bin/c++       -rdynamic CMakeFiles/cmTC_23d2e.dir/feature_tests.cxx.o  -o cmTC_23d2e 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -561,17 +561,17 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_a5ad3/fast"
 /usr/bin/make -f CMakeFiles/cmTC_a5ad3.dir/build.make CMakeFiles/cmTC_a5ad3.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building CXX object CMakeFiles/cmTC_a5ad3.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_a5ad3.dir/feature_tests.cxx.o -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_a5ad3.dir/feature_tests.cxx.o -c ~/ITP_project/ros_workspace/build/CMakeFiles/feature_tests.cxx
 Linking CXX executable cmTC_a5ad3
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5ad3.dir/link.txt --verbose=1
 /usr/bin/c++       -rdynamic CMakeFiles/cmTC_a5ad3.dir/feature_tests.cxx.o  -o cmTC_a5ad3 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -632,30 +632,30 @@ make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles
     Feature record: CXX_FEATURE:0cxx_variadic_macros
     Feature record: CXX_FEATURE:0cxx_variadic_templates
 Determining if the include file pthread.h exists passed with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_b12e8/fast"
 /usr/bin/make -f CMakeFiles/cmTC_b12e8.dir/build.make CMakeFiles/cmTC_b12e8.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_b12e8.dir/CheckIncludeFile.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_b12e8.dir/CheckIncludeFile.c.o   -c /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/usr/bin/cc    -o CMakeFiles/cmTC_b12e8.dir/CheckIncludeFile.c.o   -c ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
 Linking C executable cmTC_b12e8
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b12e8.dir/link.txt --verbose=1
 /usr/bin/cc      -rdynamic CMakeFiles/cmTC_b12e8.dir/CheckIncludeFile.c.o  -o cmTC_b12e8 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
-Change Dir: /home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
+Change Dir: ~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp
 
 Run Build Command:"/usr/bin/make" "cmTC_fff58/fast"
 /usr/bin/make -f CMakeFiles/cmTC_fff58.dir/build.make CMakeFiles/cmTC_fff58.dir/build
-make[1]: Entering directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Entering directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 Building C object CMakeFiles/cmTC_fff58.dir/CheckFunctionExists.c.o
 /usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_fff58.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
 Linking C executable cmTC_fff58
 /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fff58.dir/link.txt --verbose=1
 /usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_fff58.dir/CheckFunctionExists.c.o  -o cmTC_fff58 -lpthread 
-make[1]: Leaving directory '/home/pim/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '~/ITP_project/ros_workspace/build/CMakeFiles/CMakeTmp'
 
 

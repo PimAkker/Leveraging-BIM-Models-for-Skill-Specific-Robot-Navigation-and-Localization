@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pim/ITP_project/ros_workspace/src
+CMAKE_SOURCE_DIR = ~/ITP_project/ros_workspace/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pim/ITP_project/ros_workspace/build
+CMAKE_BINARY_DIR = ~/ITP_project/ros_workspace/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_targe
 .PHONY : rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_navigation && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd ~/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_navigation && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/pim/ITP_project/ros_workspace/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pim/ITP_project/ros_workspace/src /home/pim/ITP_project/ros_workspace/src/rosbot_description/src/rosbot_navigation /home/pim/ITP_project/ros_workspace/build /home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_navigation /home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd ~/ITP_project/ros_workspace/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" ~/ITP_project/ros_workspace/src ~/ITP_project/ros_workspace/src/rosbot_description/src/rosbot_navigation ~/ITP_project/ros_workspace/build ~/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_navigation ~/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : rosbot_description/src/rosbot_navigation/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

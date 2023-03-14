@@ -13,21 +13,21 @@ fi
 
 echo_and_run() { echo "+ $@" ; "$@" ; }
 
-echo_and_run cd "/home/pim/ITP_project/ros_workspace/src/rosbot_description/src/rosbot_description"
+echo_and_run cd "~/ITP_project/ros_workspace/src/rosbot_description/src/rosbot_description"
 
 # ensure that Python install destination exists
-echo_and_run mkdir -p "$DESTDIR/home/pim/ITP_project/ros_workspace/install/lib/python2.7/dist-packages"
+echo_and_run mkdir -p "$DESTDIR~/ITP_project/ros_workspace/install/lib/python2.7/dist-packages"
 
 # Note that PYTHONPATH is pulled from the environment to support installing
 # into one location when some dependencies were installed in another
 # location, #123.
 echo_and_run /usr/bin/env \
-    PYTHONPATH="/home/pim/ITP_project/ros_workspace/install/lib/python2.7/dist-packages:/home/pim/ITP_project/ros_workspace/build/lib/python2.7/dist-packages:$PYTHONPATH" \
-    CATKIN_BINARY_DIR="/home/pim/ITP_project/ros_workspace/build" \
+    PYTHONPATH="~/ITP_project/ros_workspace/install/lib/python2.7/dist-packages:~/ITP_project/ros_workspace/build/lib/python2.7/dist-packages:$PYTHONPATH" \
+    CATKIN_BINARY_DIR="~/ITP_project/ros_workspace/build" \
     "/usr/bin/python2" \
-    "/home/pim/ITP_project/ros_workspace/src/rosbot_description/src/rosbot_description/setup.py" \
+    "~/ITP_project/ros_workspace/src/rosbot_description/src/rosbot_description/setup.py" \
      \
-    build --build-base "/home/pim/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_description" \
+    build --build-base "~/ITP_project/ros_workspace/build/rosbot_description/src/rosbot_description" \
     install \
     --root="${DESTDIR-/}" \
-    --install-layout=deb --prefix="/home/pim/ITP_project/ros_workspace/install" --install-scripts="/home/pim/ITP_project/ros_workspace/install/bin"
+    --install-layout=deb --prefix="~/ITP_project/ros_workspace/install" --install-scripts="~/ITP_project/ros_workspace/install/bin"
