@@ -152,14 +152,14 @@ def generate_pointcloud(elements, height):
             min_y = min(y)
             max_y = max(y)
 
-            for current_x in np.arange(min_x, max_x, 0.05):
+            for current_x in np.arange(min_x, max_x, 0.01):
                 x.append(current_x)
                 y.append(min_y)
                 x_y_forcsv.append([current_x,min_y])
                 x.append(current_x)
                 y.append(max_y)
                 x_y_forcsv.append([current_x,max_y])
-            for current_y in np.arange(min_y, max_y, 0.05):
+            for current_y in np.arange(min_y, max_y, 0.01):
                 y.append(current_y)
                 x.append(min_x)
                 x_y_forcsv.append([min_x,current_y])
