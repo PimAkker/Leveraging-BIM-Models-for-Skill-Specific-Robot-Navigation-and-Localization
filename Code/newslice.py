@@ -6,16 +6,16 @@ from pymesh.meshio import form_mesh, save_mesh
 import numpy as np
 from numpy.linalg import norm
 
-def slice_mesh2(mesh, direction, height):
-    """ Slice a given 3D mesh N times along certain direciton.
+def slice_mesh2(mesh, height):
+    """ Slice a given 3D mesh once on a certain height.
 
     Args:
         mesh (:class:`Mesh`): The mesh to be sliced.
         direction (:class:`numpy.ndaray`): Direction orthogonal to the slices.
-        N (int): Number of slices.
+        height (int): The height of the slice.
 
     Returns:
-        A list of `N` :class:`Mesh` objects, each representing a single slice.
+        A list of 1 element :class:`Mesh` object, representing a slice.
     """
     N = 1
 
@@ -27,7 +27,7 @@ def slice_mesh2(mesh, direction, height):
 
     # center = 0.5 * (bbox_min + bbox_max)
     radius = norm(bbox_max - slice_location)
-    direction = np.array(direction)
+    direction = np.array([0, 0, 1])
     direction = direction / norm(direction)
 
     proj_len = np.dot(mesh.vertices, direction)
@@ -48,7 +48,6 @@ def slice_mesh2(mesh, direction, height):
         box = generate_box_mesh(min_corner, max_corner)
         boxes.append(box)
 
-    num_boxes = len(boxes)
     boxes = merge_meshes(boxes)
     rot = Quaternion.fromData(
             np.array([0.0, 0.0, 1.0]), np.array(direction)).to_matrix()
@@ -60,7 +59,6 @@ def slice_mesh2(mesh, direction, height):
     source = slabs.get_attribute("source").ravel()
     selected = source == 1
     cross_section_faces = slabs.faces[selected]
-    cross_section = form_mesh(slabs.vertices, cross_section_faces)
 
     intersects = np.dot(slabs.vertices, direction).ravel() - \
             np.dot(slice_location, direction)
