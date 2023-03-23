@@ -21,3 +21,7 @@ Gets the list of elements (strings that could be queried by type using ifcopensh
 ## save_pointcloud
 
 Do the same as generate_pointcloud function, but it also saves the mesh into the csv file and saves the image.
+
+## get_height
+
+Extracts the height of the lidar sensor from the xacro (urdf) file. As a parameter there should be the path to the xacro file.
