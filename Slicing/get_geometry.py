@@ -8,6 +8,8 @@ from shapely.geometry import Polygon
 import geopandas as gpd
 from newslice import *
 import csv
+import xml.etree.ElementTree as ET
+import xacro
 
 def extract_mesh(element, height):
     """ Generate the mesh of the element and slice it on specific height.
@@ -205,6 +207,33 @@ def generate_pointcloud(elements: list, height: float):
             y_complete.append(y)
 
     return x_y_forcsv, x_all, y_all, x_complete, y_complete
+
+def get_height(robot_urdf: str) -> float:
+    """ Extracts the height from the URDF file.
+
+    robot_urdf: the path for the urdf of the robot.
+
+    This code assumes that the parent of the laser in the xacro is link, not a joint.
+    """
+    tree = ET.parse(robot_urdf)
+    root = tree.getroot()
+    joint = root.findall(".//joint[@name='rplidar_joint']")[0]#.find('origin')
+    origin = joint.find('origin').get('xyz').split()
+    z = float(origin[2])
     
+    parent_name = root.find(f".//joint[@name='rplidar_joint']/parent[@link]")
+    while parent_name is not None:
+        parent_link = root.find(f".//link[@name='{parent_name.get('link')}']")
+        if parent_link is not None:
+            pose = parent_link.find('pose').text.split()
+            height = pose[2]
+            z += float(height)
+            parent_name = parent_link.find('parent[@link]')
+        else:
+            break
+    
+    return z
+
 if __name__ == "__main__":
-    save_pointcloud(["IfcWall"], 0.3)
+    # save_pointcloud(["IfcWall"], 0.3)
+    print(get_height('./urdf/rosbot.xacro'))
