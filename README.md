@@ -22,7 +22,7 @@ The IFC file can be generated anew from Revit also. IFC files can be viewed in a
 These IFC files can be transformed into knowledge graphs (RDF graphs in TTL format) using an open IFCtoLBD Python converter that is available here:
 https://github.com/ISBE-TUe/IFCtoLBD. This leads to a graph (TTL file) that can be loaded into a graph databases, such as [OntoText GraphDB](https://graphdb.ontotext.com/).
 
-While you work on the Barn model first and foremost, similar sample data (RVT, IFC, TTL) is also available here for the Atlas building:
+While you work on the Barn model first and foremost, similar sample data (RVT, IFC, TTL) is also available here for the Atlas building :
 https://github.com/ISBE-TUe/atlas-building-graph
 
 ![bimmodel.jpg](bimmodel.jpg)
