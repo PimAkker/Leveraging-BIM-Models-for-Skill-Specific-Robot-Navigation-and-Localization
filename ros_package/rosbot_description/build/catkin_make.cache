@@ -1,0 +1,2 @@
+rosbot_description:rosbot_gazebo:rosbot_navigation
+-DCATKIN_DEVEL_PREFIX=/home/pim/ros_workspace/src/rosbot_description/devel -DCMAKE_INSTALL_PREFIX=/home/pim/ros_workspace/src/rosbot_description/install -G Unix Makefiles

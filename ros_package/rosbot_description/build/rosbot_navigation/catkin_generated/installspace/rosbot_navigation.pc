@@ -1,0 +1,8 @@
+prefix=/home/pim/ros_workspace/src/rosbot_description/install
+
+Name: rosbot_navigation
+Description: Description of rosbot_navigation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

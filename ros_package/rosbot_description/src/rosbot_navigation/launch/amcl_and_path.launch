@@ -1,0 +1,52 @@
+
+
+
+<launch>
+
+  <!-- Map Server Arguments -->
+  <arg name="map_file" default="/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_map.yaml"/>
+
+  <!-- <arg name="map_file" default="$(find turtlebot_tutorials)/maps/map1.yaml"/> -->
+  
+  <!-- this is neccesery to link the map server to the odom:  -->
+
+  
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_map.yaml" />
+  <!-- Arguments -->
+
+  <arg name="scan_topic"     default="/scan"/>
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
+  <!-- AMCL -->
+
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <remap from="scan" to="scan"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="base_link"/>
+    <param name="update_min_d" value="0.1"/>
+    <param name="update_min_a" value="0.2"/>
+    <param name="min_particles" value="500"/>
+    <param name="global_frame_id" value="map"/>
+    <param name="tf_broadcast" value="true" />
+    <param name="initial_pose_x" value="0.0"/>
+    <param name="initial_pose_y" value="0.0"/>
+    <param name="initial_pose_a" value="0.0"/>
+  </node>
+   
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find rosbot_navigation)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find rosbot_navigation)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find rosbot_navigation)/config/trajectory_planner.yaml" command="load" />
+
+    <remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan" to="/scan"/>
+    <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="1.0"/>
+    <param name="move_base/DWAPlannerROS/xy_goal_tolerance" value="1.0"/>
+  </node>
+</launch>
