@@ -25,6 +25,8 @@ We will create a link to the ITP_project/ros_package/rosbot_description folder i
 Now you should have a catkin workspace with a link to the rosbot_description folder. You can now build the workspace with ``catkin_make``.  
 
 ## running the simulation
+Because of the way the files are structured you need to change the .world file that refers to the 3D model of your world. In our example this is atlas.world. To do this go to: ``/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_gazebo/worlds/atlas.world`` and change the lines 
+``<uri>/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_reframed.stl</uri>`` to your own path. 
 - Open a new terminal 
 - source the terminal as ``source ~/<ros_workspace_name>/devel/setup.sh 
 `` for example ``source ~/catkin_ws/devel/setup.sh``

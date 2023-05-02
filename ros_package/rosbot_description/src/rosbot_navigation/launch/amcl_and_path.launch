@@ -4,14 +4,15 @@
 <launch>
 
   <!-- Map Server Arguments -->
-  <arg name="map_file" default="/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_map.yaml"/>
+  <arg name="map_file" default="$(find rosbot_description)/src/rosbot_navigation/maps/atlas_map.yaml"/>
+
 
   <!-- <arg name="map_file" default="$(find turtlebot_tutorials)/maps/map1.yaml"/> -->
   
   <!-- this is neccesery to link the map server to the odom:  -->
 
   
-  <node name="map_server" pkg="map_server" type="map_server" args="/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_map.yaml" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find rosbot_description)/src/rosbot_navigation/maps/atlas_map.yaml" />
   <!-- Arguments -->
 
   <arg name="scan_topic"     default="/scan"/>
