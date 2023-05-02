@@ -26,9 +26,9 @@ Now you should have a catkin workspace with a link to the rosbot_description fol
 
 ## running the simulation
 - Open a new terminal 
-- source the terminal as ``source ~/<ros_workspace_name>/devel/setup.sh
-``
-- run ``roslaunch rosbot_description rosbot_rviz.launch``
+- source the terminal as ``source ~/<ros_workspace_name>/devel/setup.sh 
+`` for example ``source ~/catkin_ws/devel/setup.sh``
+- run ``roslaunch rosbot_description rosbot_rviz.launch`` 
 - Open a new terminal
 - source again as in previous step
 - run ``roslaunch rosbot_navigation amcl_and_path.launch``
