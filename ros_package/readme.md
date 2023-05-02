@@ -12,19 +12,24 @@ The workspace should be in another folder to the ITP_project you just have presu
 
 We will create a link to the ITP_project/ros_package/rosbot_description folder in the src folder of the catkin workspace. To do this do the following:
 
-- create a catkin workspace
+- Create a catkin workspace (if you haven't already)
     - ``mkdir -p ~/catkin_ws/src``
     - ``cd ~/catkin_ws/``
     - ``catkin_make``
-- clone the repo in another folder (for example)
+- Clone the repo in another folder of your choice or pull the newest version
     - ``cd ..``
     - ``git clone \<repo link>
-- create a link to the rosbot_description folder
-    - ``cd ~/catkin_ws/src``
-    - ``ln -s \<path to ITP_project>/ros_package/rosbot_description \<path to ros workspace>/src/``
-
+- Create a link to the rosbot_description folder
+    - ``ln -s <path to ITP_project_git>/ros_package/rosbot_description <path to ros workspace>/src/``
+    - for example ``ln -s ~/ITP_project/ros_package/rosbot_description ~/catkin_ws/src/``
 Now you should have a catkin workspace with a link to the rosbot_description folder. You can now build the workspace with ``catkin_make``.  
 
 ## running the simulation
-
-# finish this later
+- Open a new terminal 
+- source the terminal as ``source ~/<ros_workspace_name>/devel/setup.sh
+``
+- run ``roslaunch rosbot_description rosbot_rviz.launch``
+- Open a new terminal
+- source again as in previous step
+- run ``roslaunch rosbot_navigation amcl_and_path.launch``
+# <---finish this later-->
