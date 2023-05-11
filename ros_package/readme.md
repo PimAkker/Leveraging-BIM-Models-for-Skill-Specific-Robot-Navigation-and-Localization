@@ -3,6 +3,12 @@ Hi, this is the readme for running the ROS packages of this project.
 ## Requirements
 
 We assume you are running ros melodic or ubuntu 18 and know the basics of ROS.
+We use the following packages for python 2.7
+- numpy
+- scipy
+- matplotlib
+- PIL
+
 
 ## Getting started
 
