@@ -12,7 +12,7 @@ In our project it should be like: Robot sends API to get the needed data, server
 
 APIs are sent using the HTTP protocol, which uses the IP addresses of the server and robot. The IP address is unique for every machine in the world.
 
-## How use the server?
+## How to use the server?
 
 You should open this folder in a new workspace and run the following command:
 
@@ -22,3 +22,12 @@ $ go run .
 This command should be running and waiting for http requests. If you take a look at the code the function ListenAndServe waits for the request and responds in the proper way. How it will respond it depends on the handlers.
 
 As the server is a computer, one wants to run several processes. Maybe the creator wants to use these processes and make them to communicate. Exactly this happens in this case, because we want that our server to communicate with the database which is on the port 7200 when you run it. Behind the scenes when we run the database, actually the database server is run. So every time when robot sends API to our server, it is forwarded to the database server. The APIs for graphDB can be found in their documentation https://graphdb.ontotext.com/documentation/10.0/pdf/GraphDB.pdf#24e. We can not just make a client on the robot side that will send queries to the graphDB server, because this is not secure and robot does not have enough power to process the data fastly. Therefore we need out own server that will communicate with both robot and database.
+
+## Quering database
+
+The GET request (select queries) can be done using the following command:
+```bash
+curl -X GET -H "Content-Type: application/json" -d '{"query": "<select_query>"}' http://localhost:9090/
+```
+
+To make quering easier we send json with a key "query" and a following query. From the code you can send GET request and provide the json.
