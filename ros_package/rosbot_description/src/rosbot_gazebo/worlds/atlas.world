@@ -69,7 +69,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_reframed.stl</uri>
+              <uri>/home/pim/ITP_project/BIM models/test_setup/simple_room_v3/simple_room_v3_fixed.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -87,7 +87,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_reframed.stl</uri>
+              <uri>/home/pim/ITP_project/BIM models/test_setup/simple_room_v3/simple_room_v3_fixed.STL</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
