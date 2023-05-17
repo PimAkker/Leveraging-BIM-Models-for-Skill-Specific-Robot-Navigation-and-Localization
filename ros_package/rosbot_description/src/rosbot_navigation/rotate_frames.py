@@ -20,7 +20,7 @@ from tf.transformations import euler_from_quaternion
 import pdb
 import pcl_ros
 from PIL import Image
-from scipy.spatial import KDTree
+from scipy.spatial.distance import cdist
 import yaml
 
 
@@ -69,7 +69,7 @@ def scan_callback(scan):
     # transform the rotation 
     cloud_tf = cloud_tf + trans
     cloud_tf = cloud_tf [:,0:2]
-    cloud_tf = cloud_tf
+ 
     # plot_transformed(cloud, cloud_tf)
 
     
@@ -93,43 +93,35 @@ def scan_callback(scan):
     closeness_threshold = 0.1
 
     # pdb.set_trace()
-    tree = KDTree(np.vstack((map_coor.T, cloud_tf)))
-    dist, _ = tree.query(map_coor.T, k=k)
+    # tree = KDTree(np.vstack((map_coor.T, cloud_tf)))
+    # dist, _ = tree.query(map_coor.T, k=k)
 
-    
-
-    no_close_neighbours = np.sum(dist>closeness_threshold,axis=1)
-    no_close_neighbours = np.where(no_close_neighbours<2)[0] 
-    not_on_map_coor = map_coor[:,no_close_neighbours]
+    dist = cdist(map_coor.T, cloud_tf)
+    num_neighbours = np.sum(closeness_threshold>dist,axis=0)
+    no_close_neighbours = np.where(num_neighbours==0)[0]
+    not_on_map_coor = cloud_tf[no_close_neighbours,:]
     print("no_close_neighbours", no_close_neighbours.shape)
 
-    # cloud_tf = np.delete(cloud_tf, no_close_neighbours, axis=0)
-
     
+
+    # no_close_neighbours = np.sum(dist>closeness_threshold,axis=1)
+    # no_close_neighbours = np.where(no_close_neighbours<2)[0] 
+    # not_on_map_coor = map_coor[:,no_close_neighbours]
+    # print("no_close_neighbours", no_close_neighbours.shape)
+
+    cloud_tf = np.delete(cloud_tf, no_close_neighbours, axis=0)
+
+    plt.figure()
     plt.gca().set_aspect('equal', adjustable='box')
 
     plt.scatter(map_coor[1], map_coor[0], s=0.001, c='b')
     plt.scatter(cloud_tf[:,0], cloud_tf[:,1], s=0.1, c='g')
     plt.scatter(not_on_map_coor[:,0],not_on_map_coor[:,1], s = 0.1, c='r')
-
     
-
-
-    
-
-    
-    # get the distance between the points in the map and the points in the laser scan
 
 
     plt.show()
     pdb.set_trace()
-
-
-    
-    
-    
-    
-
 
 def plot_transformed(cloud, cloud_tf):
     # show the transformed and untransformed point cloud
