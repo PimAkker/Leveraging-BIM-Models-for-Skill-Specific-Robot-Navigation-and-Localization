@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"server/handlers"
 	"time"
 )
 
@@ -31,10 +32,10 @@ func sendTTL(file_path string) {
 
 func main() {
 	l := log.New(os.Stdout, "db-api", log.LstdFlags)
-	ch := newConnection(l)
+	db_h := handlers.NewDataBase(l)
 
 	sm := http.NewServeMux()
-	sm.Handle("/", ch)
+	sm.Handle("/", db_h)
 
 	s := &http.Server{
 		Addr:         ":9090",
@@ -51,8 +52,20 @@ func main() {
 		}
 	}()
 
-	// go func() {
-	// 	requestURL := fmt.Sprintf("http://localhost:7200/rest/repositories/Project/")
+	// go func(query string) {
+	// 	fmt.Println(query)
+	// 	fmt.Println(byte(' '))
+	// 	fmt.Println(byte('{'))
+	// 	mask := strconv.FormatInt(int64('%'), 16)
+	// 	query = strings.ReplaceAll(query, "%", "%"+mask)
+	// 	mask = strconv.FormatInt(int64(' '), 16)
+	// 	query = strings.ReplaceAll(query, " ", "%"+mask)
+	// 	mask = strconv.FormatInt(int64('{'), 16)
+	// 	query = strings.ReplaceAll(query, "{", "%"+mask)
+	// 	mask = strconv.FormatInt(int64('}'), 16)
+	// 	query = strings.ReplaceAll(query, "}", "%"+mask)
+	// 	requestURL := "http://localhost:7200/repositories/Project?query=" + query
+
 	// 	req, err := http.NewRequest(http.MethodGet, requestURL, nil)
 	// 	if err != nil {
 	// 		fmt.Printf("client: could not create request: %s\n", err)
@@ -73,37 +86,48 @@ func main() {
 	// 		fmt.Printf("client: could not read response body: %s\n", err)
 	// 		os.Exit(1)
 	// 	}
+
 	// 	fmt.Printf("client: response body: %s\n", resBody)
+	// }("select * where {  ?s ?p ?o . }")
+
+	// go func() {
+	// 	jsonBody := []byte(`{
+	// 		"query": "select * where {?element ?p "Columns"}",
+	// 		"templateID": "get_columns",
+	// 	}`)
+	// 	// "query": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	// 	// 	PREFIX bot: <https://w3id.org/bot#>
+	// 	// 	PREFIX props: <https://w3id.org/props#>
+	// 	// 	SELECT *
+	// 	// 	WHERE {
+	// 	// 		?element ?p "Columns" .
+	// 	// 	}",
+	// 	bodyReader := bytes.NewReader(jsonBody)
+
+	// 	// requestURL := fmt.Sprintf("http://localhost:7200/rest/repositories/Project/sparql-templates")
+	// 	req, err := http.NewRequest(http.MethodPost, "http://localhost:7200/repositories/Project", bodyReader)
+
+	// 	if err != nil {
+	// 		fmt.Printf("client: could not create request: %s\n", err)
+	// 		os.Exit(1)
+	// 	}
+
+	// 	res, err := http.DefaultClient.Do(req)
+	// 	if err != nil {
+	// 		fmt.Printf("client: error making http request: %s\n", err)
+	// 		os.Exit(1)
+	// 	}
+
+	// 	fmt.Printf("client: got response!\n")
+	// 	fmt.Printf("client: status code: %d\n", res.StatusCode)
+
+	// 	// resBody, err := ioutil.ReadAll(res.Body)
+	// 	// if err != nil {
+	// 	// 	fmt.Printf("client: could not read response body: %s\n", err)
+	// 	// 	os.Exit(1)
+	// 	// }
+	// 	fmt.Print("client: response body: ", res)
 	// }()
-
-	go func() {
-		jsonBody := []byte(`{"element": "Columns"}`)
-		bodyReader := bytes.NewReader(jsonBody)
-
-		requestURL := fmt.Sprintf("http://localhost:7200")
-		req, err := http.NewRequest(http.MethodPost, requestURL, bodyReader)
-
-		if err != nil {
-			fmt.Printf("client: could not create request: %s\n", err)
-			os.Exit(1)
-		}
-
-		res, err := http.DefaultClient.Do(req)
-		if err != nil {
-			fmt.Printf("client: error making http request: %s\n", err)
-			os.Exit(1)
-		}
-
-		fmt.Printf("client: got response!\n")
-		fmt.Printf("client: status code: %d\n", res.StatusCode)
-
-		// resBody, err := ioutil.ReadAll(res.Body)
-		// if err != nil {
-		// 	fmt.Printf("client: could not read response body: %s\n", err)
-		// 	os.Exit(1)
-		// }
-		fmt.Print("client: response body: ", res)
-	}()
 
 	sigChan := make(chan os.Signal)
 	signal.Notify(sigChan, os.Interrupt)
