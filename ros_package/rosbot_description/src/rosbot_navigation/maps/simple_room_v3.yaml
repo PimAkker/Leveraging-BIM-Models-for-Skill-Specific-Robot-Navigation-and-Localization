@@ -1,4 +1,4 @@
-image: map3_fixed.png
+image: simple_room_v3.png
 resolution: 0.0117
 origin: [-0.91, -0.9, 0.0]
 occupied_thresh: 0.65
