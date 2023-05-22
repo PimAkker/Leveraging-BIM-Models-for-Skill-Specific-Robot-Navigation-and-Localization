@@ -38,9 +38,15 @@ func main() {
 
 	sm := mux.NewRouter()
 
+	// Select queries
 	post := sm.Methods(http.MethodPost).Subrouter()
 	post.HandleFunc("/select", db_h.SelectRequest)
 	post.Use(db_h.MiddlewareDBValidation)
+
+	// Update queries
+	post1 := sm.Methods(http.MethodPost).Subrouter()
+	post1.HandleFunc("/update", db_h.UpdateDB)
+	post1.Use(db_h.MiddlewareDBValidation)
 
 	s := &http.Server{
 		Addr:         ":9090",
