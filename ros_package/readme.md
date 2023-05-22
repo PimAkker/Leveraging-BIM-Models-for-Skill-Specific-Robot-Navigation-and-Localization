@@ -40,3 +40,25 @@ Because of the way the files are structured you need to change the .world file t
 - Open a new terminal
 - source again as in previous step
 - run ``roslaunch rosbot_navigation amcl_and_path.launch``
+
+## How to run map_delta.py
+
+This function calculates the differences between the given map and the laserscan. It only calculates object that are on the laserscan but not on the map, it may  be useful to change this in the future. 
+
+The function can be run as following:
+- Run the simulation as above.
+- Start a new terminal and source it (``source ~/<ros_workspace_name>/devel/setup.sh``)
+- In the terminal type ``rosrun rosbot_navigation map_delta.py`` 
+
+### map_delta.py options
+map_delta.py has commands build in that can help with debugging or faster running. An example of running these commands:
+
+``rosrun rosbot_navigation map_delta.py --closeness_threshold 0.2 -- large_map True``
+
+All commands that can be used with map_delta:
+| Argument              | Default | Input type | Description                                                                                                 |
+|-----------------------|---------|------------|-------------------------------------------------------------------------------------------------------------|
+|large_map           | False   | Bool       | If true this will clip the map to the max size of the laser scan, useful for large maps                     |
+|plot_transformed    | False   | Bool       | Plot the laserscan and the transformed laserscan (VERY SLOW! only for debugging)                            |
+|plot_delta          | False   | Bool       | Plot the map and the laserscan with the points that are not on the map (VERY SLOW! only for debugging)      |
+|closeness_threshold   | 0.1     | float      | How close a laserscan point must be to any point on the given map to be considered part of the map |
