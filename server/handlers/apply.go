@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -17,10 +18,11 @@ func NewDataBase(l *log.Logger) *DataBase {
 	return &DataBase{l}
 }
 
-func (db *DataBase) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	q := queries.NewQuery("")
+func (db *DataBase) SelectRequest(rw http.ResponseWriter, r *http.Request) {
+	db.l.Printf("SELECT REQUEST")
+	q := r.Context().Value(KeyQuery{}).(*queries.Query)
 
-	q.FromJSON(r.Body)
+	// db.l.Println("query: " + q.GetQuery())
 
 	requestURL := "http://localhost:7200/repositories/Project?query=" + q.GetQuery()
 
@@ -44,6 +46,20 @@ func (db *DataBase) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		fmt.Printf("client: could not read response body: %s\n", err)
 		os.Exit(1)
 	}
+	rw.Write(resBody)
+}
 
-	fmt.Printf("client: response body: %s\n", resBody)
+type KeyQuery struct{}
+
+func (db *DataBase) MiddlewareDBValidation(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		q := &queries.Query{}
+
+		q.FromJSON(r.Body)
+
+		ctx := context.WithValue(r.Context(), KeyQuery{}, q)
+		request := r.WithContext(ctx)
+
+		next.ServeHTTP(rw, request)
+	})
 }
