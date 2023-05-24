@@ -47,7 +47,7 @@ def scan_callback(scan):
 
     cur_time = time.time()
     cloud, cloud_tf = get_transformed_cloud(scan)
-    # pdb.set_trace()
+
     if plot_transformed_bool:
         plot_transformed(cloud, cloud_tf)
 
@@ -218,6 +218,7 @@ def plot_delta(map_coor, cloud_tf, not_on_map_coor):
 
 if __name__ == '__main__':
     rospy.init_node('map_comparer')
+    rate = rospy.Rate(1) # run the loop every second
     rospy.Subscriber('/scan', LaserScan, scan_callback)
 
     rospy.spin()
