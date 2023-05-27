@@ -25,9 +25,14 @@ As the server is a computer, one wants to run several processes. Maybe the creat
 
 ## Quering database
 
-The GET request (select queries) can be done using the following command:
-```bash
-curl -X GET -H "Content-Type: application/json" -d '{"query": "<select_query>"}' http://localhost:9090/
-```
+To get the data from the database, you can send POST request to the server. The API is 
 
-To make quering easier we send json with a key "query" and a following query. From the code you can send GET request and provide the json.
+```bash
+localhost:9090\select
+```
+and you should also provide a JSON with query like this:
+```
+{
+    "query": <select_query>
+}
+```
