@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func sendTTL(file_path string) {
@@ -48,9 +49,11 @@ func main() {
 	post1.HandleFunc("/update", db_h.UpdateDB)
 	post1.Use(db_h.MiddlewareDBValidation)
 
+	handler := cors.Default().Handler(sm)
+
 	s := &http.Server{
 		Addr:         ":9090",
-		Handler:      sm,
+		Handler:      handler,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  20 * time.Second,
 		WriteTimeout: 20 * time.Second,
