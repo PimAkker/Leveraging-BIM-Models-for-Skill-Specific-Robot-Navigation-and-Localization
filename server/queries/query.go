@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"io"
 	"log"
-	"strconv"
+	"net/url"
 	"strings"
 )
 
 type Query struct {
-	query string `validate:"required"`
+	Query string `json:"query"`
 }
 
 func NewQuery(query string) *Query {
@@ -30,14 +30,11 @@ func is_letter(ch byte) bool {
 }
 
 func (q *Query) translateQuery() {
-	for i := 0; i < len(q.query); i++ {
-		if !is_letter(q.query[i]) && q.query[i] != '%' && q.query[i] != '.' {
-			mask := strconv.FormatInt(int64(q.query[i]), 16)
-			q.query = strings.ReplaceAll(q.query, string(q.query[i]), "%"+mask)
-		}
-	}
+	q.Query = url.QueryEscape(q.Query)
+	q.Query = strings.ReplaceAll(q.Query, "+", "%20")
+	q.Query = strings.ReplaceAll(q.Query, "%22", "'")
 }
 
 func (q Query) GetQuery() string {
-	return q.query
+	return q.Query
 }

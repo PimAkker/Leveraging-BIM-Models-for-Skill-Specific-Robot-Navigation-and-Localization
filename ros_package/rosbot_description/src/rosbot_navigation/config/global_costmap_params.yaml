@@ -10,3 +10,8 @@ global_costmap:
   rolling_window: true
   inflation_radius: 0.3
   resolution: 0.01
+
+  plugins:
+  - {name: static_layer, type: "costmap_2d::StaticLayer"}
+  - {name: obstacles_layer, type: "costmap_2d::VoxelLayer"}
+  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
