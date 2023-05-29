@@ -6,18 +6,21 @@ import rospy
 import tf
 from sensor_msgs.msg import LaserScan
 from matplotlib import pyplot as plt
+import matplotlib.patches as patches
+
 import rospy
 from sensor_msgs.msg import LaserScan
 import sensor_msgs.point_cloud2 as pc2
 import laser_geometry.laser_geometry as lg
 import numpy as np
 lp = lg.LaserProjection()
-
+from geometry_msgs.msg import PoseStamped
 from tf.transformations import euler_from_quaternion
 import pdb
 
 from PIL import Image
 from scipy.spatial.distance import cdist
+from scipy.cluster.hierarchy import fclusterdata
 import yaml
 import argparse 
 import time
@@ -25,8 +28,8 @@ import time
 parser = argparse.ArgumentParser(description='Calculate the map delta')
 parser.add_argument('--large_map', default=False, type=bool,help='If true this will clip the map to the max size of the laser scan, usefull for large maps')
 parser.add_argument('--plot_transformed', default=False, type=bool ,help='Plot the laserscan and the transformed laserscan (VERY SLOW! only for debugging)')
-parser.add_argument('--plot_delta', default=False,type=bool, help='Plot the map and the laserscan with the points that are not on the map (VERY SLOW! only for debugging)')
-parser.add_argument('--closeness_threshold', default=0.1, type=float, help='The threshold that a laserscan point needs to be close to a map point to be considered on the map in meters')
+parser.add_argument('--plot_delta', default=True,type=bool, help='Plot the map and the laserscan with the points that are not on the map (VERY SLOW! only for debugging)')
+parser.add_argument('--closeness_threshold', default=0.2, type=float, help='The threshold that a laserscan point needs to be close to a map point to be considered on the map in meters')
 
 args = parser.parse_args()
 large_map = args.large_map
@@ -39,26 +42,65 @@ plot_delta_bool = args.plot_delta
 
 def scan_callback(scan):
     """
-    callback function for the laser scan this function will be called every time a new laser scan is published
+    callback function for the laser scan this function will be called every time laserscan is called 
 
     input : scan : the laser scan
     output: None
     """
+    #decide whether to update the map
 
-    cur_time = time.time()
-    cloud, cloud_tf = get_transformed_cloud(scan)
+    if update_checker():
+        print("updating...")
+        cur_time = time.time()
+        cloud, cloud_tf = get_transformed_cloud(scan)
 
-    if plot_transformed_bool:
-        plot_transformed(cloud, cloud_tf)
+        if plot_transformed_bool:
+            plot_transformed(cloud, cloud_tf)
 
-    map_coor = get_map(cloud_tf)
+        map_coor = get_map(cloud_tf)
 
-    not_on_map_coor, cloud_tf = find_deltas(cloud_tf, map_coor)
+        not_on_map_coor, cloud_tf = find_deltas(cloud_tf, map_coor)
 
-    if plot_delta_bool:
-        plot_delta(map_coor, cloud_tf, not_on_map_coor)
+        
+
+        
+
+
+        clustered_coor = cluster_points(not_on_map_coor)
+        square_info, square_corners = convert_data_for_sending(clustered_coor)
+        if plot_delta_bool:
+            plot_delta(map_coor, cloud_tf, clustered_coor, square_info, square_corners)
+    else:
+        print("no update")
 
     print("this function took", time.time()-cur_time)
+def convert_data_for_sending(clustered_coor):
+    """
+    This takes in the clustered data and converts it so that it can be send to the database
+    input : clustered_coor : the clustered coordinates 
+            corners : the corners of the squares
+    
+    output : squares description: the description of the squares where columns are x_len, y_len, and centerpoint_x and centerpoint_y
+    """
+    squares_description = np.empty((0,4), float)
+    corners = np.empty((0,4), float)
+    
+    for i in range(clustered_coor.shape[0]):
+        x_max, x_min = clustered_coor[i][:,0].max(), clustered_coor[i][:,0].min()
+        y_max, y_min = clustered_coor[i][:,1].max(), clustered_coor[i][:,1].min()
+        # get the length of the sides and the centerpoint coordinates
+        x_len = x_max - x_min
+        y_len = y_max - y_min
+        centerpoint = np.array([(x_max+x_min)/2, (y_max+y_min)/2])
+
+        # add the data to the squares description
+        squares_description = np.vstack((squares_description, np.array(([x_len, y_len, centerpoint[0], centerpoint[1]]))))
+        corners = np.vstack((corners, np.array(([x_min, x_max, y_min, y_max]))))
+
+
+    return squares_description, corners
+   
+ 
     
 def find_deltas(cloud_tf, map_coor):
     """
@@ -195,26 +237,79 @@ def plot_transformed(cloud, cloud_tf):
     plt.clf()
     plt.show()
 
-def plot_delta(map_coor, cloud_tf, not_on_map_coor):
+def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     """
     plot the map, the transformed cloud and the points that are not on the map
 
     input : map_coor : the coordinates of the map
             cloud_tf : the transformed cloud
             not_on_map_coor : the coordinates of the points that are not on the map
+            clusters: x,y coordinates of the clusters
+            square_info: the length and width of the squares and the centerpoint of the squares 
+            corners : the coordinates of the corners of the squares of the clusters
     output : None
     """
     
     plt.ion()
-    plt.show()
     plt.gca().set_aspect('equal', adjustable='box')
+
+
+    # plot the map, the transformed cloud and the points
     plt.scatter(map_coor[:,0], map_coor[:,1], s=0.1, c='b',alpha=0.1)
     plt.scatter(cloud_tf[:,0], cloud_tf[:,1], s=0.1, c='g')
-    plt.scatter(not_on_map_coor[:,0],not_on_map_coor[:,1], s = 0.1, c='r')
-    plt.legend(["map", "Matched points(on map)", "unmachted points(not on map)"])
+
+    # plot the clusters and add the legend
+    for i in range(clusters.shape[0]):
+        centerpoint = square_info[i][0:2]
+        
+        # plot the cluster laserscan points
+        plt.scatter(clusters[i][:,0],clusters[i][:,1], s=0.1)
+        plt.scatter(centerpoint[0], centerpoint[1], s=0.3, marker='x')
+        # plot the square
+        x_min, x_max, y_min, y_max = corners[i]
+        plt.plot([x_min, x_max, x_max, x_min, x_min], [y_min, y_min, y_max, y_max, y_min])
+
+
+    plt.legend()
+   
+    plt.title("found {} objects not on map".format(clusters.shape[0]))
     plt.pause(0.1)
     plt.clf()
     plt.show()
+
+def update_checker():
+    """
+    Get the amcl confidence from the parameter server and check if it is below a threshold 
+
+    input : None
+    output : booleon : Whether this is true.
+    """
+
+    # TODO: implement
+    return True
+
+def cluster_points(not_on_map_coor):
+    """
+    Cluster the points that are not on the map for further processing
+    input : np.array 2xN : the coordinates of the points that are not on the map
+    output : np.array num_clustersxN : the coordinates of the clustered points in a list of arrays
+    """
+    min_num_in_cluster = 20
+    min_dist_between_clusters = 0.4
+    clusters = fclusterdata(not_on_map_coor, min_dist_between_clusters, criterion='distance')
+    _, counts = np.unique(clusters, return_counts=True)
+
+    # make new arrays each for one cluster
+    clusters = np.array([not_on_map_coor[clusters==i] for i in range(1,counts.shape[0]+1)])
+    clusters = clusters[counts>min_num_in_cluster]
+
+    print("found {} objects that are not on the map".format(clusters.shape[0]))
+
+    return clusters
+    
+
+
+
 
 if __name__ == '__main__':
     rospy.init_node('map_comparer')
