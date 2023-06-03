@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-
-
-
 import rospy
 import tf
 from sensor_msgs.msg import LaserScan
@@ -30,48 +27,49 @@ parser.add_argument('--large_map', default=False, type=bool,help='If true this w
 parser.add_argument('--plot_transformed', default=False, type=bool ,help='Plot the laserscan and the transformed laserscan (VERY SLOW! only for debugging)')
 parser.add_argument('--plot_delta', default=True,type=bool, help='Plot the map and the laserscan with the points that are not on the map (VERY SLOW! only for debugging)')
 parser.add_argument('--closeness_threshold', default=0.2, type=float, help='The threshold that a laserscan point needs to be close to a map point to be considered on the map in meters')
+parser.add_argument('--update_ratio', default=0.5, type=float, help='The ratio of the points that need to be on the map to update the map')
 
 args = parser.parse_args()
 large_map = args.large_map
 plot_transformed_bool = args.plot_transformed
 closeness_threshold = args.closeness_threshold
 plot_delta_bool = args.plot_delta
-
-
+update_ratio_threshold = args.update_ratio
+update_counter = 0
+update_counter_threshold = 5
 
 
 def scan_callback(scan):
     """
     callback function for the laser scan this function will be called every time laserscan is called 
 
-    input : scan : the laser scan
+    input : scan : the laser scan message
     output: None
     """
     #decide whether to update the map
+    
 
-    if update_checker():
-        print("updating...")
-        cur_time = time.time()
-        cloud, cloud_tf = get_transformed_cloud(scan)
+    print("updating...")
+    cur_time = time.time()
+    cloud, cloud_tf = get_transformed_cloud(scan)
 
-        if plot_transformed_bool:
-            plot_transformed(cloud, cloud_tf)
+    if plot_transformed_bool:
+        plot_transformed(cloud, cloud_tf)
 
-        map_coor = get_map(cloud_tf)
+    map_coor = get_map(cloud_tf)
 
-        not_on_map_coor, cloud_tf = find_deltas(cloud_tf, map_coor)
+    not_on_map_coor, cloud_tf = find_deltas(cloud_tf, map_coor)
 
-        
-
-        
-
-
+    if update_checker(not_on_map_coor, cloud_tf):
+        print("Updating map")
         clustered_coor = cluster_points(not_on_map_coor)
         square_info, square_corners = convert_data_for_sending(clustered_coor)
         if plot_delta_bool:
             plot_delta(map_coor, cloud_tf, clustered_coor, square_info, square_corners)
     else:
-        print("no update")
+        print('The coordinates have not converged yet, map not updating')
+    
+    print("no update")
 
     print("this function took", time.time()-cur_time)
 def convert_data_for_sending(clustered_coor):
@@ -118,7 +116,6 @@ def find_deltas(cloud_tf, map_coor):
     no_close_neighbours = np.where(num_neighbours==0)[0]
     not_on_map_coor = cloud_tf[no_close_neighbours,:]
     print("no_close_neighbours", no_close_neighbours.shape)
-
 
     cloud_tf = np.delete(cloud_tf, no_close_neighbours, axis=0)
 
@@ -192,7 +189,6 @@ def get_transformed_cloud(scan):
     
     # change the quaternion rotations to euler rotation
     rot = euler_from_quaternion(rot)
-
     
     cloud_tf = cloud.copy()
 
@@ -261,7 +257,7 @@ def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     # plot the clusters and add the legend
     for i in range(clusters.shape[0]):
         centerpoint = square_info[i][0:2]
-        
+
         # plot the cluster laserscan points
         plt.scatter(clusters[i][:,0],clusters[i][:,1], s=0.1)
         plt.scatter(centerpoint[0], centerpoint[1], s=0.3, marker='x')
@@ -275,18 +271,35 @@ def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     plt.title("found {} objects not on map".format(clusters.shape[0]))
     plt.pause(0.1)
     plt.clf()
-    plt.show()
+ 
 
-def update_checker():
+
+def update_checker(not_on_map, cloud):
     """
-    Get the amcl confidence from the parameter server and check if it is below a threshold 
+    Check whether the number of laserscan point that correspond to the map is more than a certain threshold
 
-    input : None
+    input : not_on_map : the number of laserscan points that are not on the map
+            cloud : the original cloud
+           
     output : booleon : Whether this is true.
     """
 
-    # TODO: implement
-    return True
+    num_not_on_map = float(not_on_map.shape[0])
+    num_on_map = float(cloud.shape[0])
+    ratio = num_not_on_map/(num_not_on_map+num_on_map)
+    print('ratio: ', ratio)
+    if  ratio < update_ratio_threshold:
+        update_counter = update_counter + 1
+    else:
+        update_counter = 0
+    if update_counter > update_counter_threshold:
+        return True
+    else:
+        return False
+        
+    
+        
+    
 
 def cluster_points(not_on_map_coor):
     """
@@ -306,10 +319,6 @@ def cluster_points(not_on_map_coor):
     print("found {} objects that are not on the map".format(clusters.shape[0]))
 
     return clusters
-    
-
-
-
 
 if __name__ == '__main__':
     rospy.init_node('map_comparer')
