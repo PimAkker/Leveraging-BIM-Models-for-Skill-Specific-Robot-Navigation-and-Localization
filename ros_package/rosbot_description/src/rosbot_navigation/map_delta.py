@@ -15,6 +15,7 @@ from geometry_msgs.msg import PoseStamped
 from tf.transformations import euler_from_quaternion
 import pdb
 
+
 from PIL import Image
 from scipy.spatial.distance import cdist
 from scipy.cluster.hierarchy import fclusterdata

@@ -9,6 +9,26 @@ from numpy.linalg import norm
 # import ifcopenshell.util.placement
 # import ifcopenshell.geom
 
+
+def update_server(coordinates):
+    """ Update the server with the coordinates of the robot.
+
+    Args:
+        coordinates (list): The coordinates of the robot.
+    Returns:
+        None
+    """
+    url = 'http://localhost:9090/update'
+    prefix = "query": "PREFIX : <http://bedrock/> PREFIX props: <https://w3id.org/props#>  INSERT DATA {"
+    myobj = {"query": "PREFIX : <http://bedrock/> PREFIX props: <https://w3id.org/props#>  INSERT DATA {:newColumn4 props:Faces '(1, 0, 3, 2, 1, 3, 2, 3, 5, 4, 2, 5, 4, 5, 7, 6, 4, 7, 6, 7, 0, 1, 6, 0, 5, 3, 0, 7, 5, 0, 1, 2, 4, 1, 4, 6)' . :newColumn4 props:Verts '(5.143, 0.0225000000000008, 0.0, 5.143, 0.0225000000000008, 0.35000000000000003, -7.30935312276424e-17, 0.022500000000000298, 0.35000000000000003, -7.30935312276424e-17, 0.022500000000000298, 0.0, 7.30935312276424e-17, -0.022500000000000298, 0.35000000000000003, 7.30935312276424e-17, -0.022500000000000298, 0.0, 5.143, -0.0224999999999998, 0.35000000000000003, 5.143, -0.0224999999999998, 0.0)' . :newColumn4 props:T '(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -17.088945248997, 7.74938706062394, 0.0)' . :newColumn4 props:Edges '(0, 1, 0, 3, 1, 2, 2, 3, 2, 3, 3, 5, 2, 4, 4, 5, 4, 5, 5, 7, 4, 6, 6, 7, 6, 7, 0, 7, 1, 6, 0, 1, 3, 5, 0, 3, 5, 7, 0, 7, 1, 2, 2, 4, 4, 6, 1, 6)' . :newColumn4 props:Reference 'Generic-wall-for-test' .}"}
+    faces= 'props:Faces '(1, 0, 3, 2, 1, 3, 2, 3, 5, 4, 2, 5, 4, 5, 7, 6, 4, 7, 6, 7, 0, 1, 6, 0, 5, 3, 0, 7, 5, 0, 1, 2, 4, 1, 4, 6)'
+
+    for coordinate in coordinates:
+        object = ":unknown_object" + str(np.random.randint(999999))
+
+
+
+
 def slice_height(mesh, direction, height):
     """ Slice a given 3D mesh at a certain height.
 
@@ -222,3 +242,108 @@ def extract_Tc(element):
         Tc.append(np.reshape(T_col, (4,3)).T)
 
     return Tc
+
+
+def linemap_server(height, query, slice_mode):
+    url = 'http://localhost:9090/select'
+    myobj = {"query": query}
+
+    x = requests.post(url, json = myobj)
+
+    started = 0
+    string_array = []
+    full_string = ''
+    for letter in x.text:
+        if letter == '"' or letter == "'":
+            if started != 1:
+                started = 1
+            else:
+                started = 0
+                string_array.append(full_string)
+                full_string = ''
+        else:
+            if started == 1:
+                    full_string = full_string + letter
+
+    faces = []
+    verts = []
+    edges = []
+    T_s = []
+
+ 
+
+    for i in range(int(len(string_array)/4)):
+        faces.append(string_to_array(string_array[4*i]))
+        verts.append(string_to_array(string_array[4*i+1]))
+        T_s.append(string_to_array(string_array[4*i+2]))
+        edges.append(string_to_array(string_array[4*i+3]))
+
+    grouped_faces = []
+    grouped_verts = []
+
+    for j in range(len(faces)):
+        grouped_verts.append(np.array([[verts[j][i], verts[j][i + 1], verts[j][i + 2]] for i in range(0, len(verts[j]), 3)]))
+        grouped_faces.append(np.array([[faces[j][i], faces[j][i + 1], faces[j][i + 2]] for i in range(0, len(faces[j]), 3)]))
+
+    mesh = []
+
+    for z in range(len(grouped_verts)):
+        mesh.append(pymesh.form_mesh(grouped_verts[z], grouped_faces[z]))
+
+    meshes = []
+
+    for y in range(len(mesh)):
+        if slice_mode == "volume":
+            meshes.append(slice_volume(mesh[y], [0,0,1], height))
+        elif slice_mode == "plane":
+            meshes.append(slice_height(mesh[y], [0,0,1], height))
+        else:
+            raise NotImplementedError("No slice mode selected.")
+
+    vs = []
+    fs = []
+
+    for mesh_object in meshes:
+        vs.append(mesh_object[0].vertices)     #[x, y, z] of the vertex
+        fs.append(mesh_object[0].faces)        #index of the vertices of the faces
+
+    for n in range(len(vs)):
+        for i, f in enumerate(fs[n]):
+            p = [] # we are going to store our polygon in here
+            for idx in f:
+                hom_coord = [vs[n][idx][0],vs[n][idx][1],0,1]
+                T_coor = np.reshape(T_s[n], (4,3)).T
+                hom_coord_map = np.matmul(T_coor, hom_coord)
+                p.append((hom_coord_map[0], hom_coord_map[1]))
+
+
+            
+            pplot = Polygon(p)
+            
+            x,y = pplot.exterior.xy 
+
+            xmap = []
+            ymap = []
+
+
+        ## Notice that we are actually plotting the vertices and not the faces of the polygon,
+        # There probably is a better more elegant way to do this.
+            
+            plt.plot(x,y, color='black')  
+
+
+    plt.margins(0,0)
+    plt.gca().xaxis.set_major_locator(plt.NullLocator())
+    plt.gca().yaxis.set_major_locator(plt.NullLocator())
+
+
+    ax = plt.gca()
+    ax.set_aspect('equal', adjustable='box')
+    plt.axis('off')
+    # pdb.set_trace()
+    path = os.path.split(__file__)[0]
+    plt.savefig(os.path.join(path, r"maps/generated_map.png"), bbox_inches='tight', pad_inches=0, transparent=True)
+    plt.show()
+    
+
+    return
