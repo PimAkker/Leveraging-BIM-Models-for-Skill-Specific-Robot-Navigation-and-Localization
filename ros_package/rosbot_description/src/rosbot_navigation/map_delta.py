@@ -217,9 +217,7 @@ def plot_transformed(cloud, cloud_tf):
     input:  cloud : the original cloud
             cloud_tf : the transformed cloud
     output: None
-    """ 
-
-    
+    """  
     plt.ion()
     plt.show()
 
