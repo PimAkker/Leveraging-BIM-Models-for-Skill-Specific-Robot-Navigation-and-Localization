@@ -66,6 +66,9 @@ def scan_callback(scan):
         square_info, square_corners = convert_data_for_sending(clustered_coor)
         if plot_delta_bool:
             plot_delta(map_coor, cloud_tf, clustered_coor, square_info, square_corners)
+
+    
+        
     else:
         print('The coordinates have not converged yet, map not updating')
     
