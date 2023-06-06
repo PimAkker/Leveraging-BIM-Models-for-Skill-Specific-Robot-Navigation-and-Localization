@@ -28,7 +28,7 @@ As the server is a computer, one wants to run several processes. Maybe the creat
 To get the data from the database, you can send POST request to the server. The API is 
 
 ```bash
-localhost:9090\select
+localhost:9090/select
 ```
 and you should also provide a JSON with query like this:
 ```
@@ -36,3 +36,19 @@ and you should also provide a JSON with query like this:
     "query": <select_query>
 }
 ```
+
+In order to make an update to database the API is
+
+```bash
+localhost:9090/update
+```
+and the JSON is the same as for select API:
+```
+{
+    "query": <select_query>
+}
+```
+
+## SetUp of Database
+
+In order to setup the database you should download the graphDB software. Before running a server, you should run graphDB software. The repository has to be named `Project` in the GraphDB. You have to provide ttl file to repository in graphDB, which can be generated using IFCtoLBD code.
