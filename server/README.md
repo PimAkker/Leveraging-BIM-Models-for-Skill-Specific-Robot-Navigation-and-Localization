@@ -1,6 +1,8 @@
 # Server
 
-This is the server side of the project. The goal of the server is to provide querying of the data from the graph database as well as updating the database. The server is written in relativly young language named Golang (Go). One could ask why Go and the answer is the entusiasm for learning new things as well as a very high demand for Go in the industry lately. It is one of the fastest growing language with very good documentation! It provides a really good platform for conncurent programming and finally it is low-level language. The main thing that engineers managed to do with Go is fast compiling (this is one of the benefits over C++). The resources for learning Go are documentation and tour of Go on their website (https://go.dev/tour/welcome/1).
+This is the server side of the project. The goal of the server is to provide querying of the data from the graph database as well as updating the database. The server is written in relativly young language named Golang (Go). One could ask why Go and the answer is the entusiasm for learning new things as well as a very high demand for Go in the industry lately. It is one of the fastest growing language with very good documentation! It provides a really good platform for conncurent programming and finally it is low-level language. The main thing that engineers managed to do with Go is fast compiling (this is one of the benefits over C++). The resources for learning Go are documentation and [tour of Go](https://go.dev/tour/welcome/1).
+
+You can follow the instructions from the official [website](https://go.dev/doc/install) to install Go.
 
 P.S. the best thing about Go is that it is open source!
 

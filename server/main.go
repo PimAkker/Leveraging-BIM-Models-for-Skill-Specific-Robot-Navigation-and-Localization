@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -16,24 +14,8 @@ import (
 	"github.com/rs/cors"
 )
 
-func sendTTL(file_path string) {
-	kvPairs := make(map[string]string)
-	kvPairs["config"] = "@" + file_path
-	postJson, err := json.Marshal(kvPairs)
-	if err != nil {
-		panic(err)
-	}
-
-	postContent := bytes.NewBuffer(postJson)
-
-	request, err := http.Post("localhost:7200/rest/repositories", "multipart/form-data", postContent)
-	if err != nil {
-		log.Panic("Wrong api")
-	}
-	fmt.Println(request)
-}
-
 func main() {
+	fmt.Println("Server started")
 	l := log.New(os.Stdout, "db-api", log.LstdFlags)
 	db_h := handlers.NewDataBase(l)
 
