@@ -5,12 +5,11 @@ from pymesh.meshio import form_mesh, save_mesh
 import pymesh
 import numpy as np
 from numpy.linalg import norm
-# import ifcopenshell
-# import ifcopenshell.util.placement
-# import ifcopenshell.geom
+import requests
+from shapely.geometry import Polygon
+import matplotlib.pyplot as plt
 
-
-def update_server(coordinates):
+def update_server(coordinates, height):
     """ Update the server with the coordinates of the robot.
 
     Args:
@@ -18,16 +17,44 @@ def update_server(coordinates):
     Returns:
         None
     """
+    corner1 = np.amin(coordinates)
+    corner2 = np.amin(coordinates)
+    corner1[2] = height - 0.1
+    corner2[2] = height + 0.1
+
+    box = generate_box_mesh(corner1, corner2)
+    box_ver = box.vertices
+    box_face = box.faces
+
+    string_ver = "("
+    for ver in box_ver:
+        for number in ver:
+            string_ver= string_ver + str(number) + ", "
+    string_ver = string_ver[0:-2] + ")"
+
+    string_face = "("
+    for face in box_face:
+        for number in face:
+            string_face= string_face + str(number) + ", "
+    string_face = string_face[0:-2] + ")"
+
+    T_coordin = [0, 1, height]
+
+    T_input = "(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, " + str(T_coordin[0]) + ", " + str(T_coordin[1]) + ", " + str(T_coordin[2]) + ")"
+
     url = 'http://localhost:9090/update'
-    prefix = "query": "PREFIX : <http://bedrock/> PREFIX props: <https://w3id.org/props#>  INSERT DATA {"
-    myobj = {"query": "PREFIX : <http://bedrock/> PREFIX props: <https://w3id.org/props#>  INSERT DATA {:newColumn4 props:Faces '(1, 0, 3, 2, 1, 3, 2, 3, 5, 4, 2, 5, 4, 5, 7, 6, 4, 7, 6, 7, 0, 1, 6, 0, 5, 3, 0, 7, 5, 0, 1, 2, 4, 1, 4, 6)' . :newColumn4 props:Verts '(5.143, 0.0225000000000008, 0.0, 5.143, 0.0225000000000008, 0.35000000000000003, -7.30935312276424e-17, 0.022500000000000298, 0.35000000000000003, -7.30935312276424e-17, 0.022500000000000298, 0.0, 7.30935312276424e-17, -0.022500000000000298, 0.35000000000000003, 7.30935312276424e-17, -0.022500000000000298, 0.0, 5.143, -0.0224999999999998, 0.35000000000000003, 5.143, -0.0224999999999998, 0.0)' . :newColumn4 props:T '(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -17.088945248997, 7.74938706062394, 0.0)' . :newColumn4 props:Edges '(0, 1, 0, 3, 1, 2, 2, 3, 2, 3, 3, 5, 2, 4, 4, 5, 4, 5, 5, 7, 4, 6, 6, 7, 6, 7, 0, 7, 1, 6, 0, 1, 3, 5, 0, 3, 5, 7, 0, 7, 1, 2, 2, 4, 4, 6, 1, 6)' . :newColumn4 props:Reference 'Generic-wall-for-test' .}"}
-    faces= 'props:Faces '(1, 0, 3, 2, 1, 3, 2, 3, 5, 4, 2, 5, 4, 5, 7, 6, 4, 7, 6, 7, 0, 1, 6, 0, 5, 3, 0, 7, 5, 0, 1, 2, 4, 1, 4, 6)'
+    prefix = "PREFIX : <http://bedrock/> PREFIX props: <https://w3id.org/props#> INSERT DATA {"
+    object_str = ":unknown_object" + str(np.random.randint(999999))
+    faces = " props:Faces '"
+    verts = " props:Verts '"
+    T_str = " props:T '"
+    edges = " props:Edges '"
+    ref = " props:Edges 'Generic-wall-for-test' .}"
+    full_query = prefix + object_str + faces + string_face + "' . " + object_str + verts + string_ver + "' . " + object_str + T_str + T_input + "' . " + object_str + edges + "(0, 0, 0)" + "' . " + object_str + ref
 
-    for coordinate in coordinates:
-        object = ":unknown_object" + str(np.random.randint(999999))
+    x = requests.post(url, json = full_query)
 
-
-
+    return
 
 def slice_height(mesh, direction, height):
     """ Slice a given 3D mesh at a certain height.
@@ -194,56 +221,6 @@ def string_to_array(string):
 
     return array
 
-def extract_mesh(element, height, slice_mode):
-    settings = ifcopenshell.geom.settings()
-
-    shape = []
-    faces = []
-    edges = []
-    verts = []
-
-    for i in range(len(element)):
-        shape.append(ifcopenshell.geom.create_shape(settings, element[i]))
-
-        faces.append(shape[i].geometry.faces)
-        edges.append(shape[i].geometry.edges)
-        verts.append(shape[i].geometry.verts)
-
-    grouped_verts = []
-    grouped_faces = []
-    mesh = []
-
-    for j in range(len(element)):
-        grouped_verts.append(np.array([[verts[j][i], verts[j][i + 1], verts[j][i + 2]] for i in range(0, len(verts[j]), 3)]))
-        grouped_faces.append(np.array([[faces[j][i], faces[j][i + 1], faces[j][i + 2]] for i in range(0, len(faces[j]), 3)]))
-
-        mesh.append(pymesh.form_mesh(grouped_verts[j], grouped_faces[j]))
-    meshes = []
-
-    for j in range(len(element)):
-        if slice_mode == "volume":
-            meshes.append(slice_volume(mesh[j], [0,0,1], height))
-        elif slice_mode == "plane":
-            meshes.append(slice_height(mesh[j], [0,0,1], height))
-        else:
-            raise NotImplementedError("No slice mode selected.")
-
-    return meshes
-
-def extract_Tc(element):
-    settings = ifcopenshell.geom.settings()
-
-    shape = []
-    Tc = []
-
-    for i in range(len(element)):
-        shape.append(ifcopenshell.geom.create_shape(settings, element[i]))
-        T_col = shape[i].transformation.matrix.data
-        Tc.append(np.reshape(T_col, (4,3)).T)
-
-    return Tc
-
-
 def linemap_server(height, query, slice_mode):
     url = 'http://localhost:9090/select'
     myobj = {"query": query}
@@ -269,8 +246,6 @@ def linemap_server(height, query, slice_mode):
     verts = []
     edges = []
     T_s = []
-
- 
 
     for i in range(int(len(string_array)/4)):
         faces.append(string_to_array(string_array[4*i]))
@@ -304,12 +279,12 @@ def linemap_server(height, query, slice_mode):
     fs = []
 
     for mesh_object in meshes:
-        vs.append(mesh_object[0].vertices)     #[x, y, z] of the vertex
-        fs.append(mesh_object[0].faces)        #index of the vertices of the faces
+        vs.append(mesh_object[0].vertices)
+        fs.append(mesh_object[0].faces)
 
     for n in range(len(vs)):
         for i, f in enumerate(fs[n]):
-            p = [] # we are going to store our polygon in here
+            p = []
             for idx in f:
                 hom_coord = [vs[n][idx][0],vs[n][idx][1],0,1]
                 T_coor = np.reshape(T_s[n], (4,3)).T
@@ -324,13 +299,8 @@ def linemap_server(height, query, slice_mode):
 
             xmap = []
             ymap = []
-
-
-        ## Notice that we are actually plotting the vertices and not the faces of the polygon,
-        # There probably is a better more elegant way to do this.
             
             plt.plot(x,y, color='black')  
-
 
     plt.margins(0,0)
     plt.gca().xaxis.set_major_locator(plt.NullLocator())
@@ -340,7 +310,6 @@ def linemap_server(height, query, slice_mode):
     ax = plt.gca()
     ax.set_aspect('equal', adjustable='box')
     plt.axis('off')
-    # pdb.set_trace()
     path = os.path.split(__file__)[0]
     plt.savefig(os.path.join(path, r"maps/generated_map.png"), bbox_inches='tight', pad_inches=0, transparent=True)
     plt.show()
