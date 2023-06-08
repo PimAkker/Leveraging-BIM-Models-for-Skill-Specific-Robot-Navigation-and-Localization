@@ -8,6 +8,8 @@ from numpy.linalg import norm
 import requests
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
+import pdb
+import os
 
 def update_server(coordinates, height):
     """ Update the server with the coordinates of the robot.
@@ -17,12 +19,17 @@ def update_server(coordinates, height):
     Returns:
         None
     """
-    corner1 = np.amin(coordinates)
-    corner2 = np.amin(coordinates)
-    corner1[2] = height - 0.1
-    corner2[2] = height + 0.1
+    x_offset =  -13.366
+    y_offset = 7.1558
+
+    # coordinates = [xmin, xmax, ymin, ymax]
+    coordinates = coordinates + np.array([x_offset, x_offset, y_offset, y_offset])
+    corner1 = [coordinates[0], coordinates[2], -0.5]
+    corner2 = [coordinates[1], coordinates[3], 3]
+
 
     box = generate_box_mesh(corner1, corner2)
+    
     box_ver = box.vertices
     box_face = box.faces
 
@@ -31,12 +38,13 @@ def update_server(coordinates, height):
         for number in ver:
             string_ver= string_ver + str(number) + ", "
     string_ver = string_ver[0:-2] + ")"
-
+    
     string_face = "("
     for face in box_face:
         for number in face:
             string_face= string_face + str(number) + ", "
     string_face = string_face[0:-2] + ")"
+    
 
     T_coordin = [0, 1, height]
 
@@ -49,11 +57,11 @@ def update_server(coordinates, height):
     verts = " props:Verts '"
     T_str = " props:T '"
     edges = " props:Edges '"
-    ref = " props:Edges 'Generic-wall-for-test' .}"
+    ref = " props:Reference 'Generic-wall-for-test' .}"
     full_query = prefix + object_str + faces + string_face + "' . " + object_str + verts + string_ver + "' . " + object_str + T_str + T_input + "' . " + object_str + edges + "(0, 0, 0)" + "' . " + object_str + ref
-
-    x = requests.post(url, json = full_query)
-
+    myobj = {"query": full_query}
+    x = requests.post(url, json = myobj)
+    
     return
 
 def slice_height(mesh, direction, height):

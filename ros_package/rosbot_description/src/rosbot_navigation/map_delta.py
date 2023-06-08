@@ -3,7 +3,6 @@ import rospy
 import tf
 from sensor_msgs.msg import LaserScan
 from matplotlib import pyplot as plt
-import matplotlib.patches as patches
 
 import rospy
 from sensor_msgs.msg import LaserScan
@@ -11,11 +10,10 @@ import sensor_msgs.point_cloud2 as pc2
 import laser_geometry.laser_geometry as lg
 import numpy as np
 lp = lg.LaserProjection()
-from geometry_msgs.msg import PoseStamped
 from tf.transformations import euler_from_quaternion
 import pdb
 
-
+from server_functions import *
 from PIL import Image
 from scipy.spatial.distance import cdist
 from scipy.cluster.hierarchy import fclusterdata
@@ -60,13 +58,24 @@ def scan_callback(scan):
     map_coor = get_map(cloud_tf)
 
     not_on_map_coor, cloud_tf = find_deltas(cloud_tf, map_coor)
-
-    if update_checker(not_on_map_coor, cloud_tf):
+    
+    # if the ratio of the points that are on the map is larger than the threshold update the map and there is something to update
+    pdb.set_trace()
+    if update_checker(not_on_map_coor, cloud_tf) and not_on_map_coor.size != 0:
         print("Updating map")
         clustered_coor = cluster_points(not_on_map_coor)
         square_info, square_corners = convert_data_for_sending(clustered_coor)
         if plot_delta_bool:
             plot_delta(map_coor, cloud_tf, clustered_coor, square_info, square_corners)
+        # send the data to the database
+        
+        # #push changes to the server
+        for i in range(square_corners.shape[0]):
+            update_server(square_corners[i], 0.2)
+
+        # #update the map for later retrieval
+        linemap_server(0.2, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "volume")
+
 
     
         
@@ -114,7 +123,7 @@ def find_deltas(cloud_tf, map_coor):
     output : not_on_map_coor : the coordinates of the points that are not on the map
              cloud_tf : the transformed cloud without the points that are not on the map
     """
-
+   
     dist = cdist(cloud_tf, map_coor)
     num_neighbours = np.sum(dist<closeness_threshold,axis=1, keepdims=False)
     no_close_neighbours = np.where(num_neighbours==0)[0]
@@ -133,13 +142,18 @@ def get_map(cloud_tf=None):
 
     output : map_coor : the coordinates of the map in the laser scan coordinate system
     """
-    image = Image.open("/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_navigation/maps/simple_room_v3.png").convert('L', colors=2)
+
+
+    #update the generated_map.png files in the maps folder
+    
+    #import the updated map
+    image = Image.open("/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_navigation/maps/generated_map.png").convert('L', colors=2)
     im_array = np.array(image)
     zeros = im_array == 0
     im_array[im_array != 0] = 0
     im_array[zeros] = 1
 
-    with open("/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_navigation/maps/simple_room_v3.yaml", "r") as f:
+    with open("/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_navigation/maps/generated_map.yaml", "r") as f:
         map_data = yaml.load(f)
 
     map_resolution = map_data['resolution']
@@ -156,6 +170,7 @@ def get_map(cloud_tf=None):
     map_coor[0] = im_array.shape[0] - map_coor[0]
 
     # adjust the coordinates so that they match the offset from the map.yaml file
+    
     map_coor[0] = map_coor[0] - map_coor[0].min() + map_origin[1]
     map_coor[1] = map_coor[1]  + map_origin[0]
 
@@ -233,7 +248,9 @@ def plot_transformed(cloud, cloud_tf):
     plt.scatter(cloud_tf[:,0],cloud_tf[:,1], s=0.1)
     plt.pause(0.0000001)
     plt.clf()
+
     plt.show()
+    plt.close()
 
 def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     """
@@ -271,6 +288,7 @@ def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     plt.legend()
    
     plt.title("found {} objects not on map".format(clusters.shape[0]))
+    pdb.set_trace()
     plt.pause(0.1)
     plt.clf()
  
@@ -285,19 +303,20 @@ def update_checker(not_on_map, cloud):
            
     output : booleon : Whether this is true.
     """
+    return True
 
-    num_not_on_map = float(not_on_map.shape[0])
-    num_on_map = float(cloud.shape[0])
-    ratio = num_not_on_map/(num_not_on_map+num_on_map)
-    print('ratio: ', ratio)
-    if  ratio < update_ratio_threshold:
-        update_counter = update_counter + 1
-    else:
-        update_counter = 0
-    if update_counter > update_counter_threshold:
-        return True
-    else:
-        return False
+    # num_not_on_map = float(not_on_map.shape[0])
+    # num_on_map = float(cloud.shape[0])
+    # ratio = num_not_on_map/(num_not_on_map+num_on_map)
+    # print('ratio: ', ratio)
+    # if  ratio < update_ratio_threshold:
+    #     update_counter = update_counter + 1
+    # else:
+    #     update_counter = 0
+    # if update_counter > update_counter_threshold:
+    #     return True
+    # else:
+    #     return False
         
     
         
@@ -311,6 +330,7 @@ def cluster_points(not_on_map_coor):
     """
     min_num_in_cluster = 20
     min_dist_between_clusters = 0.4
+    
     clusters = fclusterdata(not_on_map_coor, min_dist_between_clusters, criterion='distance')
     _, counts = np.unique(clusters, return_counts=True)
 
