@@ -1,3 +1,5 @@
+# this file resets the generated_map.png from the database
+
 
 from create_linemap import *
 

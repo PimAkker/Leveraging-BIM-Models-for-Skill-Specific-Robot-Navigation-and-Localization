@@ -35,6 +35,9 @@
     <param name="initial_pose_x" value="0.0"/>
     <param name="initial_pose_y" value="0.0"/>
     <param name="initial_pose_a" value="0.0"/>
+    <param name =" initial_cov_xx" value="1.5"/>
+    <param name =" initial_cov_yy" value="0.7"/>
+    <param name =" initial_cov_aa" value="0.8"/>
   </node>
    <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">

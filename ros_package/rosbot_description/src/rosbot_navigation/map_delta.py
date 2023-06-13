@@ -20,6 +20,7 @@ from scipy.cluster.hierarchy import fclusterdata
 import yaml
 import argparse 
 import time
+import roslaunch
 
 parser = argparse.ArgumentParser(description='Calculate the map delta')
 parser.add_argument('--large_map', default=False, type=bool,help='If true this will clip the map to the max size of the laser scan, usefull for large maps')
@@ -60,7 +61,7 @@ def scan_callback(scan):
     not_on_map_coor, cloud_tf = find_deltas(cloud_tf, map_coor)
     
     # if the ratio of the points that are on the map is larger than the threshold update the map and there is something to update
-    pdb.set_trace()
+    
     if update_checker(not_on_map_coor, cloud_tf) and not_on_map_coor.size != 0:
         print("Updating map")
         clustered_coor = cluster_points(not_on_map_coor)
@@ -77,10 +78,11 @@ def scan_callback(scan):
         linemap_server(0.2, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "volume")
 
 
+
     
         
     else:
-        print('The coordinates have not converged yet, map not updating')
+        print('The coordinates have not converged yet, or there are no new objects, map not updating')
     
     print("no update")
 
@@ -288,10 +290,10 @@ def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     plt.legend()
    
     plt.title("found {} objects not on map".format(clusters.shape[0]))
-    pdb.set_trace()
+    
     plt.pause(0.1)
-    plt.clf()
- 
+    pdb.set_trace()
+    plt.close()
 
 
 def update_checker(not_on_map, cloud):
@@ -343,8 +345,10 @@ def cluster_points(not_on_map_coor):
     return clusters
 
 if __name__ == '__main__':
+    
     rospy.init_node('map_comparer')
     rate = rospy.Rate(1) # run the loop every second
+    print("Waiting for laserscan...")
     rospy.Subscriber('/scan', LaserScan, scan_callback)
 
     rospy.spin()
