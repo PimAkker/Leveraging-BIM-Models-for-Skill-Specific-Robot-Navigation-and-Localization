@@ -10,7 +10,7 @@ The structure of the project is detailed bellow, for more information on the cha
 
 For more information about this repository and the work it contains please read the paper: Leveraging BIM Models for Skill-Specific Robot Navigation and Localization.
 
-# The structure of this project
+# Project structure
 
 ## High level overview of the project
 
@@ -21,7 +21,9 @@ This project is mainly divided into 4 parts, the pre-processing, the server, the
 
 The inputs to the poject structure, namely the IFC files and the URDF files. 
 These can be found in the following directories:
+
 IFC files --> BIM models, where you will find the IFC of atlas, a barn and the test_setup which was used for this project.
+
 URDF file --> ros_package/rosbot_description/src/rosbot_description/urdf, where rosbot.xacro is the URDF file of the rosbot used in the project. 
 
 
@@ -45,6 +47,7 @@ The server code --> server
 
 
 The slicing code --> Slicing
+
 The map generation code --> map generation
 
 
