@@ -1,6 +1,7 @@
 <launch>
 
   <!-- Map Server Arguments -->
-  <arg name="map_file" default="$(find rosbot_navigation)/maps/atlas_map.yaml"/>
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/generated_map.yaml" />
+  <node name="map_server_nav" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/navigation_map.yaml" />
+  <remap from="nav_map" to="nav_map" />
+  <node name="map_server_loc" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/localization_map.yaml" />
   </launch>

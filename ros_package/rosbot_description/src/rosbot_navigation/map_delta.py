@@ -73,10 +73,12 @@ def scan_callback(scan):
         # #push changes to the server
         for i in range(square_corners.shape[0]):
             update_server(square_corners[i], 0.2)
-
+        sensor_height = 0.2
+        robot_height = 0.6
         # #update the map for later retrieval
-        linemap_server(0.2, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "volume")
-
+        linemap_server(sensor_height, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "plane")
+        linemap_server(robot_height, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "volume")
+        pdb.set_trace() 
 
 
     
@@ -149,13 +151,14 @@ def get_map(cloud_tf=None):
     #update the generated_map.png files in the maps folder
     
     #import the updated map
-    image = Image.open("/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_navigation/maps/generated_map.png").convert('L', colors=2)
+    file_dir = os.path.dirname(os.path.realpath(__file__))
+    image = Image.open(file_dir + "/maps/generated_localization_map.png").convert('L', colors=2)
     im_array = np.array(image)
     zeros = im_array == 0
     im_array[im_array != 0] = 0
     im_array[zeros] = 1
 
-    with open("/home/pim/ITP_project/ros_package/rosbot_description/src/rosbot_navigation/maps/generated_map.yaml", "r") as f:
+    with open(file_dir + "/maps/localization_map.yaml", "r") as f:
         map_data = yaml.load(f)
 
     map_resolution = map_data['resolution']
@@ -248,9 +251,9 @@ def plot_transformed(cloud, cloud_tf):
     ax = plt.subplot(1,2,2)
     plt.title("Transformed")
     plt.scatter(cloud_tf[:,0],cloud_tf[:,1], s=0.1)
-    plt.pause(0.0000001)
+    plt.pause(1)
     plt.clf()
-
+    
     plt.show()
     plt.close()
 
@@ -290,9 +293,8 @@ def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     plt.legend()
    
     plt.title("found {} objects not on map".format(clusters.shape[0]))
-    
-    plt.pause(0.1)
     pdb.set_trace()
+    plt.pause(1)
     plt.close()
 
 

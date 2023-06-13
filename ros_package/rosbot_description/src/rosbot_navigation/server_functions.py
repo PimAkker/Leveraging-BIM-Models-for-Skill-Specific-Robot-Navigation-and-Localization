@@ -19,7 +19,8 @@ def update_server(coordinates, height):
     Returns:
         None
     """
-    x_offset =  -13.366
+    # x_offset =  -13.366
+    x_offset = -1.6
     y_offset = 7.1558
 
     # coordinates = [xmin, xmax, ymin, ymax]
@@ -319,7 +320,11 @@ def linemap_server(height, query, slice_mode):
     ax.set_aspect('equal', adjustable='box')
     plt.axis('off')
     path = os.path.split(__file__)[0]
-    plt.savefig(os.path.join(path, r"maps/generated_map.png"), bbox_inches='tight', pad_inches=0, transparent=True)
+    
+    if slice_mode == "volume":
+        plt.savefig(os.path.join(path, r"maps/generated_map_navigation.png"), bbox_inches='tight', pad_inches=0, transparent=True)
+    if slice_mode == "plane":
+        plt.savefig(os.path.join(path, r"maps/generated_localization_map.png"), bbox_inches='tight', pad_inches=0, transparent=True)
     plt.show()
     
 

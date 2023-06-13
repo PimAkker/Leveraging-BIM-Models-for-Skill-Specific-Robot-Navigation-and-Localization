@@ -1,4 +1,4 @@
-image: generated_map.png
+image: generated_localization_map.png
 resolution: 0.0105
 origin: [-3.8, -2.4, 0.0]
 occupied_thresh: 0.65

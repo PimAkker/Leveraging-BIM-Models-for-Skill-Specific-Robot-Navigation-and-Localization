@@ -11,8 +11,11 @@
   
   <!-- this is neccesery to link the map server to the odom:  -->
 
+  <node name="map_server_nav" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/navigation_map.yaml" />
+  <remap from="map" to="nav_map" />
+  <node name="map_server_loc" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/localization_map.yaml" />
   
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/generated_map.yaml" />
+
   <!-- Arguments -->
 
   <arg name="scan_topic"     default="/scan"/>
