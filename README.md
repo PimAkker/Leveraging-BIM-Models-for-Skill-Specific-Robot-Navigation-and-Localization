@@ -22,9 +22,9 @@ This project is mainly divided into 4 parts, the pre-processing, the server, the
 The inputs to the poject structure, namely the IFC files and the URDF files. 
 These can be found in the following directories:
 
-IFC files --> BIM models, where you will find the IFC of atlas, a barn and the test_setup which was used for this project.
+IFC files --> [BIM_models], where you will find the IFC of atlas, a barn and the test_setup which was used for this project.
 
-URDF file --> ros_package/rosbot_description/src/rosbot_description/urdf, where rosbot.xacro is the URDF file of the rosbot used in the project. 
+URDF file --> [ros_package/rosbot_description/src/rosbot_description/urdf], where rosbot.xacro is the URDF file of the rosbot used in the project. 
 
 
 
@@ -32,30 +32,30 @@ URDF file --> ros_package/rosbot_description/src/rosbot_description/urdf, where 
 
 The pre-processing setps converts the IFC files to TTL files to then store them in the server. For more information please refer to the README in the specific directory.
 
-The pre-processing code --> IFCtoLBD 
+The pre-processing code --> [IFCtoLBD] 
 
 
 ### Server
 
 The server stores the TTL files which contain the geometry of the building environments that will be used to create the different maps. For more information please refer to the README in the specific directory.
 
-The server code --> server
+The server code --> [server]
 
 
 ### Computer/software
 
 
 
-The slicing code --> Slicing
+The slicing code --> [Slicing]
 
-The map generation code --> map generation
+The map generation code --> [map_generation]
 
 
 ### Robot control
 
 The robot control part includes the implementation of ROS packages to make the robot navigate and localize in the building environments. For more information please refer to the README in the specific directory.
 
-The robot control --> ros-package
+The robot control --> [ros_package]
 
 
 
