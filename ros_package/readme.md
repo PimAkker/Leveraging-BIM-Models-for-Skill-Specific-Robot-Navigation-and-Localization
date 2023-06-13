@@ -3,12 +3,18 @@ Hi, this is the readme for running the ROS packages of this project.
 ## Requirements
 
 We assume you are running ros melodic on ubuntu 18 and know the basics of ROS.
-We use the following packages for python 2.7
-- numpy
-- scipy
-- matplotlib
-- PIL
+We use the following packages for python 2.7. For the full list of packages and versions look at the requirements.txt file.
 
+A few highlights you will need:
+- pymesh2       0.3
+- numpy         1.13.3
+- scipy         0.19.1
+- matplotlib    2.1.1
+- pyyaml        3.12
+- requests      2.27.1
+- shapely       1.7.1
+
+Some of these are difficult to install for the correct version, please read their docs very carefully and install the correct versions. 
 
 ## Getting started
 
