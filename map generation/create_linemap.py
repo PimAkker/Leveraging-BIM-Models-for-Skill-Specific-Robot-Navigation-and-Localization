@@ -6,27 +6,42 @@ from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
 import requests
 
-def linemap_IFC(elements, height, ifc_name, slice_mode):
+def linemap_IFC(elements, height, ifc_name, slice_mode, fig_size='none'):
     model = ifcopenshell.open(ifc_name)
 
+    storeys = model.by_type('IFCBUILDINGSTOREY')
     loaded_elements = []
-    for element in elements:
-        loaded_elements.append(model.by_type(element))
+    elevations = []
+    for storey in storeys:
+        storey_elements = ifcopenshell.util.element.get_decomposition(storey)
+        for element in storey_elements:
+            if(element.is_a().upper() in elements):
+                new_element = []
+                new_element.append(element)
+                loaded_elements.append(new_element)
+                elevations.append(storey.Elevation)
 
     Tc = []
+    total_elements = []
+
     for element in loaded_elements:
-        Tc.append(extract_Tc(element))  
+        new_Tc, num_elements = extract_Tc(element)
+        Tc.append(new_Tc)
+        total_elements.append(num_elements)
 
     loaded_mesh = []
-    for element in loaded_elements:
-        loaded_mesh.append(extract_mesh(element, height, slice_mode))
+    for i in range(len(loaded_elements)):
+        loaded_mesh.append(extract_mesh(loaded_elements[i], height-elevations[i], slice_mode))
+
+    if fig_size != 'none':
+        plt.figure(figsize=(fig_size,fig_size))
 
     for z in range(len(loaded_mesh)):
         slice = []
         vs = []
         fs = []
 
-        for j in range(len(loaded_elements[z])):
+        for j in range(total_elements[z]):
             slice.append(loaded_mesh[z][j][0])
 
             vs.append(slice[j].vertices)
@@ -38,7 +53,7 @@ def linemap_IFC(elements, height, ifc_name, slice_mode):
                 p = []
                 for idx in f:
                     hom_coord = [vs[j][idx][0],vs[j][idx][1],0,1]
-                    hom_coord_map = Tc[z][j]@hom_coord
+                    hom_coord_map = np.matmul(Tc[z][j],hom_coord)
                     p.append((hom_coord_map[0], hom_coord_map[1]))
                 polygons.append(p)
 
@@ -48,8 +63,7 @@ def linemap_IFC(elements, height, ifc_name, slice_mode):
                 plt.plot(x,y, color='black')
 
     ax = plt.gca()
-    ax.set_aspect('equal', adjustable='box') 
-
+    ax.set_aspect('equal') 
     plt.savefig('maplarge')
 
     return
@@ -79,8 +93,6 @@ def linemap_server(height, query, slice_mode):
     verts = []
     edges = []
     T_s = []
-
- 
 
     for i in range(int(len(string_array)/4)):
         faces.append(string_to_array(string_array[4*i]))
@@ -114,27 +126,23 @@ def linemap_server(height, query, slice_mode):
     fs = []
 
     for mesh_object in meshes:
-        vs.append(mesh_object[0].vertices)     #[x, y, z] of the vertex
-        fs.append(mesh_object[0].faces)        #index of the vertices of the faces
+        vs.append(mesh_object[0].vertices)
+        fs.append(mesh_object[0].faces)
 
     for n in range(len(vs)):
         for i, f in enumerate(fs[n]):
-            p = [] # we are going to store our polygon in here
+            p = []
             for idx in f:
                 hom_coord = [vs[n][idx][0],vs[n][idx][1],0,1]
                 T_coor = np.reshape(T_s[n], (4,3)).T
-                hom_coord_map = T_coor@hom_coord
+                hom_coord_map = np.matmul(T_coor,hom_coord)
                 p.append((hom_coord_map[0], hom_coord_map[1]))
-
+                print(T_coor)
+                print(hom_coord)
+                print(hom_coord_map)
             pplot = Polygon(p)
             x,y = pplot.exterior.xy 
 
-            xmap = []
-            ymap = []
-
-
-        ## Notice that we are actually plotting the vertices and not the faces of the polygon,
-        # There probably is a better more elegant way to do this.
             plt.plot(x,y, color='black')  
 
     ax = plt.gca()

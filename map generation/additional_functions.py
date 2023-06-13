@@ -59,26 +59,29 @@ def slice_height(mesh, direction, height):
     slabs = boolean(boxes, mesh, "intersection")
 
     cross_secs = []
-    source = slabs.get_attribute("source").ravel()
-    selected = source == 1
-    cross_section_faces = slabs.faces[selected]
-    cross_section = form_mesh(slabs.vertices, cross_section_faces)
+    if slabs.has_attribute("source"):
+        source = slabs.get_attribute("source").ravel()
+        selected = source == 1
+        cross_section_faces = slabs.faces[selected]
+        cross_section = form_mesh(slabs.vertices, cross_section_faces)
 
-    intersects = np.dot(slabs.vertices, direction).ravel() - \
-            np.dot(slice_location, direction)
-    eps = (max_val - min_val) / (2 * N)
+        intersects = np.dot(slabs.vertices, direction).ravel() - \
+                np.dot(slice_location, direction)
+        eps = (max_val - min_val) / (2 * N)
 
-    for i,val in enumerate(intercepts[:N]):
-        selected_vertices = np.logical_and(
-                intersects > val - eps,
-                intersects < val + eps)
-        selected_faces = np.all(selected_vertices[cross_section_faces], axis=1).ravel()
-        faces = cross_section_faces[selected_faces]
-        if i%2 == 0:
-            faces = faces[:,[0, 2, 1]]
-        m = form_mesh(slabs.vertices, faces)
-        m = remove_isolated_vertices(m)[0]
-        cross_secs.append(m)
+        for i,val in enumerate(intercepts[:N]):
+            selected_vertices = np.logical_and(
+                    intersects > val - eps,
+                    intersects < val + eps)
+            selected_faces = np.all(selected_vertices[cross_section_faces], axis=1).ravel()
+            faces = cross_section_faces[selected_faces]
+            if i%2 == 0:
+                faces = faces[:,[0, 2, 1]]
+            m = form_mesh(slabs.vertices, faces)
+            m = remove_isolated_vertices(m)[0]
+            cross_secs.append(m)
+    else:
+        cross_secs.append(slabs)
 
     return cross_secs
 
@@ -182,25 +185,36 @@ def extract_mesh(element, height, slice_mode):
     edges = []
     verts = []
 
-    for i in range(len(element)):
-        shape.append(ifcopenshell.geom.create_shape(settings, element[i]))
+    amount_elements = 0
 
-        faces.append(shape[i].geometry.faces)
-        edges.append(shape[i].geometry.edges)
-        verts.append(shape[i].geometry.verts)
+    for i in range(len(element)):
+        if element[i].Representation is not None:
+            shape.append(ifcopenshell.geom.create_shape(settings, element[i]))
+            faces.append(shape[i].geometry.faces)
+            edges.append(shape[i].geometry.edges)
+            verts.append(shape[i].geometry.verts)
+            amount_elements += 1
+        else:
+            sub_elements = ifcopenshell.util.element.get_decomposition(element[i])
+            for sub_element in sub_elements:
+                shape.append(ifcopenshell.geom.create_shape(settings, sub_element))
+                faces.append(shape[i].geometry.faces)
+                edges.append(shape[i].geometry.edges)
+                verts.append(shape[i].geometry.verts)
+                amount_elements += 1
 
     grouped_verts = []
     grouped_faces = []
     mesh = []
 
-    for j in range(len(element)):
+    for j in range(amount_elements):
         grouped_verts.append(np.array([[verts[j][i], verts[j][i + 1], verts[j][i + 2]] for i in range(0, len(verts[j]), 3)]))
         grouped_faces.append(np.array([[faces[j][i], faces[j][i + 1], faces[j][i + 2]] for i in range(0, len(faces[j]), 3)]))
 
         mesh.append(pymesh.form_mesh(grouped_verts[j], grouped_faces[j]))
     meshes = []
 
-    for j in range(len(element)):
+    for j in range(amount_elements):
         if slice_mode == "volume":
             meshes.append(slice_volume(mesh[j], [0,0,1], height))
         elif slice_mode == "plane":
@@ -216,9 +230,20 @@ def extract_Tc(element):
     shape = []
     Tc = []
 
-    for i in range(len(element)):
-        shape.append(ifcopenshell.geom.create_shape(settings, element[i]))
-        T_col = shape[i].transformation.matrix.data
-        Tc.append(np.reshape(T_col, (4,3)).T)
+    amount_elements = 0
 
-    return Tc
+    for i in range(len(element)):
+        if element[i].Representation is not None:
+            shape.append(ifcopenshell.geom.create_shape(settings, element[i]))
+            T_col = shape[i].transformation.matrix.data
+            Tc.append(np.reshape(T_col, (4,3)).T)
+            amount_elements += 1
+        else:
+            sub_elements = ifcopenshell.util.element.get_decomposition(element[i])
+            for sub_element in sub_elements:
+                shape.append(ifcopenshell.geom.create_shape(settings, sub_element))
+                T_col = shape[i].transformation.matrix.data
+                Tc.append(np.reshape(T_col, (4,3)).T)
+                amount_elements += 1
+
+    return Tc, amount_elements
