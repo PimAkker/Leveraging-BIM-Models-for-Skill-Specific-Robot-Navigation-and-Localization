@@ -62,6 +62,7 @@ Download the following python packages with pip:
 | - pyyaml     | 3.12    |
 | - requests   | 2.27.1  |
 | - shapely    | 1.7.1   |
+| - pymesh     | 1.7.1   |
 
 Please take a look at the requirements.txt file in the root of the repository for the complete list of all packages that we used, not all of these are used but may be useful for reference.
 
