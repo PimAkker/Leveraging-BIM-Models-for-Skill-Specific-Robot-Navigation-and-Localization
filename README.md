@@ -62,11 +62,11 @@ Download the following python packages with pip:
 | - pyyaml     | 3.12    |
 | - requests   | 2.27.1  |
 | - shapely    | 1.7.1   |
-| - pymesh     | 1.7.1   |
+| - pymesh2*   | 0.3     |
 
 Please take a look at the requirements.txt file in the root of the repository for the complete list of all packages that we used, not all of these are used but may be useful for reference.
 
-<b>Pymesh</b> is less simple to install: Please follow the instructions on the official website: https://pymesh.readthedocs.io/en/latest/installation.html. We had some troubles installing this package, the following worked for us:
+*<b>Pymesh</b> is less simple to install: Please follow the instructions on the official website: https://pymesh.readthedocs.io/en/latest/installation.html. We had some troubles installing this package, the following worked for us:
 - Follow the instructions until the <b> building pymesh </b> part of the documentation.
 - Here first download cmake <b>but</b> follow the Build with Setuptools method. 
 
