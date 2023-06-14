@@ -39,6 +39,9 @@ We will create a link to the ITP_project/ros_package/rosbot_description folder i
 Now you should have a catkin workspace with a link to the rosbot_description folder.  
 
 ## Running the simulation
+NOTE: This function was not finished, the localization checker does not work reliably so has been commented out, only run this when the localization is done. :)
+
+
 Because of the way the files are structured you need to change the .world file that refers to the 3D model of your world. In our example this is atlas.world. To do this navigate to:
 
  ```<ITP-repo-path>/ros_package/rosbot_description/src/rosbot_gazebo/worlds/atlas.world```
