@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+# NOTE: the update_checker function does not work reliably and has been disabled. Wait for activation of this script until the robot has found it's position in the map. 
+
 import rospy
 import tf
 from sensor_msgs.msg import LaserScan
