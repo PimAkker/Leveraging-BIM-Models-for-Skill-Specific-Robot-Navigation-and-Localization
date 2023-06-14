@@ -26,6 +26,80 @@ IFC files --> [BIM_models](BIM_models), where you will find the IFC of atlas, a 
 
 URDF file --> [ros_package/rosbot_description/src/rosbot_description/urdf](ros_package/rosbot_description/src/rosbot_description/urdf), where rosbot.xacro is the URDF file of the rosbot used in the project. 
 
+## Requirements
+This  project requires a lot of different types of software. Software that it is tested on is listed below:
+- Go (programming language) version 1.20.4 linux/amd64
+- Graphdb
+- Ros melodic
+- Ubuntu 18.04
+- python 2.7
+- pip2 
+
+
+
+## Installation
+
+### General software installation
+A lot of software has to be downloaded to run this project. The installation of the different software is explained below. This may take a couple of hours. 
+
+To install Go please follow the instructions on the official website: https://golang.org/doc/install.  Follow the installation instruction 
+<b>do <em>not</em> try to install it with apt-get</b>, this is known to create broken installations. 
+
+To install Graphdb please follow the instructions on the official website: https://www.ontotext.com/products/graphdb/download/.
+
+To install ROS melodic please follow the instructions on the official website: http://wiki.ros.org/melodic/Installation/Ubuntu.
+
+python2.7 should be installed by default on Ubuntu 18.04. Download pip through the official documentation: https://pip.pypa.io/en/stable/installation/. Make sure to download pip for python2.7 and not for python3. 
+
+
+### python packages installation
+Download the following python packages with pip:
+| package      | version |
+|--------------|---------|
+| - numpy      | 1.13.3  |
+| - scipy      | 0.19.1  |
+| - matplotlib | 2.1.1   |
+| - pyyaml     | 3.12    |
+| - requests   | 2.27.1  |
+| - shapely    | 1.7.1   |
+
+Please take a look at the requirements.txt file in the root of the repository for the complete list of all packages that we used, not all of these are used but may be useful for reference.
+
+<b>Pymesh</b> is less simple to install: Please follow the instructions on the official website: https://pymesh.readthedocs.io/en/latest/installation.html. We had some troubles installing this package, the following worked for us:
+- Follow the instructions until the <b> building pymesh </b> part of the documentation.
+- Here first download cmake <b>but</b> follow the Build with Setuptools method. 
+
+We know this is strange, but this is the onyl way we could get it to install. This installation process takes a long times $\approx 30$ min.
+
+
+
+# Running the demo
+The demo uses all the different parts of the project. Please very carefully follow the installation instructions above. We are not generating new TTL files for this but using the one that are already in the repository. To create a new TTL please follow the instructions in the README of the map_generation directory.
+
+Note that if we use <> you have to fill in your own information like so. ``<fill your own path>``
+
+To start running the demo please follow the instructions below:
+- With the ubuntu application manager start graphdb. 
+- Make sure that the you have loaded the correct ttl file into graphdb with the name Project. For the full instructions <b> Setup of database </b> part of the README in the ``server`` directory.
+- Open a terminal and navigate to the server directory.
+ ``cd <path to repository>/server``
+- Run the server with the command: ```go run .``` if this works you should get the message ``server running``
+- Open a new terminal and navigate to the map_generation director 
+and source the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``. 
+- Start gazebo and rviz: ``roslaunch rosbot_description rosbot_rviz.launch``
+- Open a new terminal and and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Start the amcl and path planning nodes:  ``roslaunch rosbot_navigation amcl_and_path.launch`` 
+- Open a new terminal and and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Start the map delta script with the command: ``rosrun rosbot_navigation map_delta.pymap_delta.py --plot_delta True``
+- If you add an object to the gazebo environment you should see the map delta script detect this and update the map.
+- To display these changes in rviz restart the map server: 
+- Open a new terminal and and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Restart the map_server ``roslaunch rosbot_navigation map_launcher.launch``
+- Now the changes detected by the map delta script should be visible in rviz.
+
+
+
+
 
 
 ### Pre-processing
@@ -58,82 +132,3 @@ The robot control part includes the implementation of ROS packages to make the r
 The robot control --> [ros_package](ros_package)
 
 
-
-# Project assignment
-## Knowledge graph generator for BIM models
-### what is a BIM model
-3D BIM models are available. They have different shapes and levels of detail. They are commonly built in [Autodesk Revit](https://www.autodesk.eu/products/revit/architecture) (free version for students). The Revit models are typically exported to software-neutral IFC files. Sample RVT and IFC models are available for a Barn model here in the repository:
-
-- RVT: [file](BIM%20models/Barn)
-- IFC: [file](BIM%20models/Barn)
-
-The IFC file can be generated anew from Revit also. IFC files can be viewed in an open viewer: https://view.ifcopenshell.org/.
-
-### knowledge graph generation
-These IFC files can be transformed into knowledge graphs (RDF graphs in TTL format) using an open IFCtoLBD Python converter that is available here:
-https://github.com/ISBE-TUe/IFCtoLBD. This leads to a graph (TTL file) that can be loaded into a graph databases, such as [OntoText GraphDB](https://graphdb.ontotext.com/).
-
-While you work on the Barn model first and foremost, similar sample data (RVT, IFC, TTL) is also available here for the Atlas building :
-https://github.com/ISBE-TUe/atlas-building-graph
-
-![bimmodel.jpg](bimmodel.jpg)
-
-### challenge
-While a lot of sample algorithms are available, it is your challenge to bring these together in your solution, and extend these software so that they respond to the data needs for robot navigation and localization (see next steps).
-
-## High quality digital twin that includes good 2D and 3D geometry
-### how to represent 2D and 3D geometry in a knowledge graph
-The resulting RDF graph or knowledge graph contains lots of semantic data. It needs to be enriched with the geometry at specific heights (z-levels) so that the robot can use this data in its 2D navigation and localization maps / plans.
-
-An indication of how geometry can be stored in a knowledge graph is available in the following examples:
-- de Koning, R., Torta, E., Pauwels, P., Hendrikx, R. W. M., & van de Molengraft, M. J. G. (2021). Queries on Semantic Building Digital Twins for Robot Navigation. In 9th Linked Data in Architecture and Construction Workshop (pp. 32-42). (CEUR Workshop Proceedings; Vol. 3081). CEUR-WS.org. http://ceur-ws.org/Vol-3081/03paper.pdf
-
-An indication of how geometry can be extracted from an IFC model (using IfcOpenShell) is available here in a Python Notebook: [Examples/DataExtractionFromIFC](Examples/DataExtractionFromIFC)
-
-### challenge
-Obtaining this geometry can be achieved in a number of ways and using a number of tools. This is part of your challenge. The resulting representation needs to become available in / via the knowledge graph.
-
-## Creation of robot-specific navigation and localization maps
-### creating robot maps
-From the IFC and knowledge graphs, navigation and localization maps can be built. For reference, you can look into the below material:
-
-- de Koning, R., Torta, E., Pauwels, P., Hendrikx, R. W. M., & van de Molengraft, M. J. G. (2021). Queries on Semantic Building Digital Twins for Robot Navigation. In 9th Linked Data in Architecture and Construction Workshop (pp. 32-42). (CEUR Workshop Proceedings; Vol. 3081). CEUR-WS.org. http://ceur-ws.org/Vol-3081/03paper.pdf
-- Hendrikx, B., Pauwels, P., Torta, E., Bruyninckx, H. P. J., & van de Molengraft, M. J. G. (2021). Connecting Semantic Building Information Models and Robotics: An application to 2D LiDAR-based localization. In 2021 IEEE International Conference on Robotics and Automation, ICRA 2021 (pp. 11654-11660). [9561129] Institute of Electrical and Electronics Engineers. https://doi.org/10.1109/ICRA48506.2021.9561129
-- Article Aiyu [under review]
-- Article Pieter [under review]
-
-The following python code shows an example of how such maps could be generated: [Examples/GeneratedGridMaps](Examples/GeneratedGridMaps)
-
-### challenge
-Embed the given datasets into robot localization and navigation systems, and find a good balance between server-side information, information in ROS, and telemetry data from the robot (laser scans).
-
-## Enable navigation and task execution (validation)
-### from similation to reality
-Up to this point, the challenge can be solved using simulators (e.g. Gazebo) and file-based exchange. It needs to be validated in a case that is as realistic as possible, yet does include a specific building and a robot. At this point, there is no such predefined location yet. This can be found as part of the project challenge. This location needs to match with the case of agricultural robots in barns (see [Lely robots](https://www.lely.com/) - left side of below image).
-
-![lelybots.jpg](lelybots.jpg)
-
-### challenge
-Perform a structured and realistic experiment that validates your work: a demonstrator. Point clouds and BIM models (RDF graphs) are compared, and navigation is improved / optimized.
-
-## Update the BIM model based on metrics obtained by robot
-### Oh we have a faulty BIM model
-In many cases, a BIM model does not match in detail with the point cloud model. Of course, moving objects like people and doors are impossible to account for in a BIM model, but also more structural discrepancies exists, such as walls that are slightly in the wrong position, doors that have been added, etc. So your end solution needs to expect such faulty data, as this is not (or hardly) resolvable in practice. And even if it were solvable, safety mechanisms need to be in place.
-
-![geometrymismatch.jpg](geometrymismatch.jpg)
-
-Information about this topic can be found here:
-- Article Koen [under review]
-- [references/R_D-Report_Student1760602.pdf](R&D Report Jean van der Meer)
-
-### challenge
-Show how changes in the built environment (displaced wall) can be detected, and reported to the knowledge graph.
-
-# Support
-Are you stuck, then get help with p.pauwels@tue.nl or e.torta@tue.nl.
-
-# Contributing
-Contributions are restricted to students of the AI&ES Master program that take on this challenge.
-
-# License
-This code needs to stay private.

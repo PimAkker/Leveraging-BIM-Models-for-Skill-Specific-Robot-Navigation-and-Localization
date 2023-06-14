@@ -20,7 +20,7 @@ Some of these are difficult to install for the correct version, please read thei
 
 Because there are unrelated files in this repository you need a seperate catkin workspace for this project. You can create one with the following commands. Please look at the [ROS tutorials](http://wiki.ros.org/ROS/Tutorials) if you are not familiar with catkin workspaces.
 
-The workspace should be in another folder to the ITP_project you just have presumably already cloned.
+The workspace should be in <b>another folder to the ITP_project</b> you just have presumably already cloned.
 
 We will create a link to the ITP_project/ros_package/rosbot_description folder in the src folder of the catkin workspace. To do this do the following:
 
@@ -29,22 +29,24 @@ We will create a link to the ITP_project/ros_package/rosbot_description folder i
     - ``cd ~/catkin_ws/``
     - ``catkin_make``
 - Clone the repo in a <b>different</b> folder of your choice or pull the newest version
-    - ``cd ..``
+    - ``cd <your_folder>``
     - ``git clone \<repo link>
 - Create a link to the rosbot_description folder. 
     - ``ln -s <path to ITP_project_git>/ros_package/rosbot_description <path to ros workspace>/src/``
     - for example ``ln -s ~/ITP_project/ros_package/rosbot_description ~/catkin_ws/src/``
     - Navigate to your catkin workspace and build it with ``catkin_make``
 
-Now you should have a catkin workspace with a link to the rosbot_description folder. You can now build the workspace with .  
+Now you should have a catkin workspace with a link to the rosbot_description folder.  
 
 ## Running the simulation
-Because of the way the files are structured you need to change the .world file that refers to the 3D model of your world. In our example this is atlas.world. To do this go to:
+Because of the way the files are structured you need to change the .world file that refers to the 3D model of your world. In our example this is atlas.world. To do this navigate to:
 
  ```<ITP-repo-path>/ros_package/rosbot_description/src/rosbot_gazebo/worlds/atlas.world```
 
   and change the <b> TWO </b> lines 
 ``<uri>/home/pim/ros_workspace/src/rosbot_description/src/rosbot_navigation/maps/atlas_reframed.stl</uri>`` to your own path. 
+
+To now run the simulation:
 - Open a new terminal 
 - source the terminal as ``source ~/<ros_workspace_name>/devel/setup.sh 
 `` for example ``source ~/catkin_ws/devel/setup.sh``
@@ -55,12 +57,9 @@ Because of the way the files are structured you need to change the .world file t
 
 ## How to run map_delta.py
 
-This function calculates the differences between the given map and the laserscan. It only calculates object that are on the laserscan but not on the map, it may  be useful to change this in the future. 
+This function calculates the differences between the given map and the laserscan. It retrieves the map from the server, the laserscan, find the differences between the two and updates the map on the server. It also reloads teh map on the server so that it can be used by the navigation stack.
 
-The function can be run as following:
-- Run the simulation as above.
-- Start a new terminal and source it (``source ~/<ros_workspace_name>/devel/setup.sh``)
-- In the terminal type ``rosrun rosbot_navigation map_delta.py`` 
+Note that this function only runs when, acml_and_path.launch, the graphdb and the server code are all running. If one of these are not running the function will probably get stuck. 
 
 ### map_delta.py options
 map_delta.py has commands build in that can help with debugging or faster running. An example of running these commands:

@@ -51,6 +51,6 @@ and the JSON is the same as for select API:
 }
 ```
 
-## SetUp of Database
+## Setup of Database
 
 In order to setup the database you should download the graphDB software. Before running a server, you should run graphDB software. The repository has to be named `Project` in the GraphDB. You have to provide ttl file to repository in graphDB, which can be generated using IFCtoLBD code.

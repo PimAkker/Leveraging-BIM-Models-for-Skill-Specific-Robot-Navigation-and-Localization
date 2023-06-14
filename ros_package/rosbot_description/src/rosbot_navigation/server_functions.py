@@ -8,7 +8,7 @@ from numpy.linalg import norm
 import requests
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
-import pdb
+
 import os
 
 def update_server(coordinates, height):

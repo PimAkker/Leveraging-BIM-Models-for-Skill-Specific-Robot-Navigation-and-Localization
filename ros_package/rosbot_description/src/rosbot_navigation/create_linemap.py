@@ -5,7 +5,7 @@ from additional_functions import *
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
 import requests
-import pdb
+
 import os 
 
 def linemap_IFC(elements, height, ifc_name, slice_mode):
