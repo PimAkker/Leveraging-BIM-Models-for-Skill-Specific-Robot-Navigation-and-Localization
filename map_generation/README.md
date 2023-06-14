@@ -6,7 +6,7 @@ The scripts contained here are dependent on a couple of python libraries that ne
 - IfcOpenShell (tested on v0.7.0.230218)
 - Shapely (tested on v2.0.1)
 
-Be aware that PyMesh cannot be installed through pip but needs to be installed manually from https://pymesh.readthedocs.io/en/latest/. Furthermore, be aware that the functions to plot maps are also dependent on some functions that are contained in the additional_functions.py
+The above mentioned versions are for python 3. For python 2, please refer to the main readme of this repository. Be aware that PyMesh cannot be installed through pip but needs to be installed manually from https://pymesh.readthedocs.io/en/latest/. Furthermore, be aware that the functions to plot maps are also dependent on some functions that are contained in the additional_functions.py
 
 ## Introduction
 The map generation scripts that are in this folder contain functions that can be independently used to generate different kind of maps either directly from an IFC file or from a graph database on a server. The database/server is explained in the server folder on this Gitlab. For a short overview, this folder contains the following python files;
