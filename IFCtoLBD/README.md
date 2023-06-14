@@ -13,3 +13,4 @@ This script is dependent on IfcOpenShell, which is a python library that should 
 This version of the IFCtoLBD script also initializes the database with the geometry used to generate the localization and navigation maps. Most of the code is the same as the basis, except for a new part in the WriteElements section. Here, the geometry is extracted from the IFC using IfcOpenShell and put in the string of the ttl.
 
 An example of how to use the function:
+convertIFCSPFtoTTL('./simple_room_v5.ifc', './v5.ttl')
