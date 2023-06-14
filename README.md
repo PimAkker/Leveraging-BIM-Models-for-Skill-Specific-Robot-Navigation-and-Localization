@@ -6,7 +6,58 @@
 
 Detailed 3D Building Information Models are available in Revit. Standard practice in the building industry makes such BIM models available. While Revit is a proprietary (closed) commercial BIM tool, a neutral data model and file format is available as well, namely the Industry Foundation Classes (IFC). Such information needs to be made available to robots to ease their localisation and navigation. That is your challenge. This is tested in a barn environment, where agricultural robots need to be able to navigate in their environment and perform actions with cattle present inside the barn. This challenge is based on earlier work, that can be previewed here: https://www.youtube.com/watch?v=b7LKU3C6gCQ.
 
-The challenge includes a number of steps, as detailed below.
+The structure of the project is detailed bellow, for more information on the challenge scroll to the Project Assignment part of the README.
+
+For more information about this repository and the work it contains please read the paper: Leveraging BIM Models for Skill-Specific Robot Navigation and Localization.
+
+# Project structure
+
+## High level overview of the project
+
+![diagram200.png](diagram200.png)
+
+
+This project is mainly divided into 4 parts, the pre-processing, the server, the computer/software and the robot control.
+
+The inputs to the poject structure, namely the IFC files and the URDF files. 
+These can be found in the following directories:
+
+IFC files --> [BIM_models](BIM_models), where you will find the IFC of atlas, a barn and the test_setup which was used for this project.
+
+URDF file --> [ros_package/rosbot_description/src/rosbot_description/urdf](ros_package/rosbot_description/src/rosbot_description/urdf), where rosbot.xacro is the URDF file of the rosbot used in the project. 
+
+
+
+### Pre-processing
+
+The pre-processing setps converts the IFC files to TTL files to then store them in the server. For more information please refer to the README in the specific directory.
+
+The pre-processing code --> [IFCtoLBD](IFCtoLBD) 
+
+
+### Server
+
+The server stores the TTL files which contain the geometry of the building environments that will be used to create the different maps. For more information please refer to the README in the specific directory.
+
+The server code --> [server](server)
+
+
+### Computer/software
+
+
+
+The slicing code --> [Slicing](Slicing)
+
+The map generation code --> [map_generation](map_generation)
+
+
+### Robot control
+
+The robot control part includes the implementation of ROS packages to make the robot navigate and localize in the building environments. For more information please refer to the README in the specific directory.
+
+The robot control --> [ros_package](ros_package)
+
+
 
 # Project assignment
 ## Knowledge graph generator for BIM models
