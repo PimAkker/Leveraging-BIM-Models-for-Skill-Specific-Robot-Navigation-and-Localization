@@ -1,12 +1,12 @@
 # Map Generation
 
 ## Dependencies
-The scripts contained here are dependent on a couple of python libaries that need to be installed first. These include;
+The scripts contained here are dependent on a couple of python libraries that need to be installed first. These include;
 - PyMesh (tested on v0.3)
 - IfcOpenShell (tested on v0.7.0.230218)
 - Shapely (tested on v2.0.1)
 
-Be aware that PyMesh cannot be installed through pip but needs to be installed manualy from https://pymesh.readthedocs.io/en/latest/. Furthermore, be aware that the functions to plot maps are also dependent on some functions that are contained in the additional_functions.py
+Be aware that PyMesh cannot be installed through pip but needs to be installed manually from https://pymesh.readthedocs.io/en/latest/. Furthermore, be aware that the functions to plot maps are also dependent on some functions that are contained in the additional_functions.py
 
 ## Introduction
 The map generation scripts that are in this folder contain functions that can be independently used to generate different kind of maps either directly from an IFC file or from a graph database on a server. The database/server is explained in the server folder on this Gitlab. For a short overview, this folder contains the following python files;
@@ -15,20 +15,20 @@ The map generation scripts that are in this folder contain functions that can be
     - slice_volume: a function that slices a given 3D mesh from the bottom of the mesh up to a certain height. This function is based on the slice_mesh function from the PyMesh library.
     - string_to_array: a function that converts a string containing an array back to an array.
     - extract_mesh: a function that extracts geometry from IFC elements, creates meshes from the geometry and slices them at the correct height.
-    - extract_Tc: a function that extracts the transformatoins from IFC elements.
+    - extract_Tc: a function that extracts the transformations from IFC elements.
 - create_linemap: a python file that contains the linemap_IFC function, which generates a linemap from an IFC file and the linemap_server functions, which generates a linemap from a graph database server.
-    - linemap_IFC: A function that generates a linemap direclty from an IFC.
-    - linemap_server: A function that generates a linemap direclty from a graph database stored on a server.
+    - linemap_IFC: A function that generates a linemap directly from an IFC.
+    - linemap_server: A function that generates a linemap directly from a graph database stored on a server.
 - create_pointmap: a python file that contains the pointmap_IFC function, which generates a pointmap from an IFC file and the pointmap_server functions, which generates a pointmap from a graph database server.
-    - pointmap_IFC: A function that generates a pointmap direclty from an IFC.
-    - pointmap_server: A function that generates a pointmap direclty from a graph database stored on a server.
+    - pointmap_IFC: A function that generates a pointmap directly from an IFC.
+    - pointmap_server: A function that generates a pointmap directly from a graph database stored on a server.
 - create_gridmap: a python file that contains the gridmap_IFC function, which generates a gridmap from an IFC file and the gridmap_server functions, which generates a gridmap from a graph database server.
-    - check_grid: a function that can fill an emptry gridmap using coordinates.
+    - check_grid: a function that can fill an empty gridmap using coordinates.
     - plot_grid: a function that plots a gridmap.
     - create_map: a function that creates an empty gridmap.
     - generate_gridmap: a function that generates a gridmap from a list of points.
-    - gridmap_IFC: A function that generates a gridmap direclty from an IFC.
-    - gridmap_server: A function that generates a gridmap direclty from a graph database stored on a server.
+    - gridmap_IFC: A function that generates a gridmap directly from an IFC.
+    - gridmap_server: A function that generates a gridmap directly from a graph database stored on a server.
 
 ## How to use
 When you want to use the functions in these scripts, download them and import them to your workspace. Be aware that using the server functions require the server with the graph database to be running. 
@@ -42,7 +42,7 @@ An example of how to use the ...map_server function:
 linemap_server(0.2, ['Stairs', 'Walls', 'Structural Columns'], "plane")
 
 ## How it works
-The map generation process is described below. Be aware that the code sections shown below are not the same as in the scripts, but rather show how seperate sections of the scripts work by showing small bits that are representative of what the scripts are doing.
+The map generation process is described below. Be aware that the code sections shown below are not the same as in the scripts, but rather show how separate sections of the scripts work by showing small bits that are representative of what the scripts are doing.
 
 -  Query elements: First the required elements are queries from either the IFC directly or from the graph database on the server. For the IFC, this is done using IfcOpenShell to retrieve the wanted elements and generate the shape of each of the individual elements. These shapes can then be used to retrieve the transformation, faces, edges and vertices of the elements. For the server, these are obtained using a SparQL query which retrieves the transformation, faces, edges and vertices of the elements directly.
 
@@ -213,4 +213,4 @@ plt.pcolor(map[::-1])
 ```
 
 ## Shortcomings
-Currently, generating maps from the server do not take the storey height into account. However, the storey elevation is stored in the database on the server. If this is needed to be implemented, one could query this elevation and check which elements belong to which storey. Then, the elevation can be subtracted from the slice height to correctly handly storeys.
+Currently, generating maps from the server do not take the storey height into account. However, the storey elevation is stored in the database on the server. If this is needed to be implemented, one could query this elevation and check which elements belong to which storey. Then, the elevation can be subtracted from the slice height to correctly handle storeys.
