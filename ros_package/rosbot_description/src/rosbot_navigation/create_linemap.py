@@ -116,12 +116,12 @@ def linemap_server(height, query, slice_mode):
     fs = []
 
     for mesh_object in meshes:
-        vs.append(mesh_object[0].vertices)     #[x, y, z] of the vertex
-        fs.append(mesh_object[0].faces)        #index of the vertices of the faces
+        vs.append(mesh_object[0].vertices)
+        fs.append(mesh_object[0].faces)
 
     for n in range(len(vs)):
         for i, f in enumerate(fs[n]):
-            p = [] # we are going to store our polygon in here
+            p = []
             for idx in f:
                 hom_coord = [vs[n][idx][0],vs[n][idx][1],0,1]
                 T_coor = np.reshape(T_s[n], (4,3)).T
@@ -136,10 +136,6 @@ def linemap_server(height, query, slice_mode):
 
             xmap = []
             ymap = []
-
-
-        ## Notice that we are actually plotting the vertices and not the faces of the polygon,
-        # There probably is a better more elegant way to do this.
             
             plt.plot(x,y, color='black')  
 
