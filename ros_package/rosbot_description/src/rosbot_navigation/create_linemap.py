@@ -1,6 +1,7 @@
 # import ifcopenshell
 # import ifcopenshell.util.placement
 # import ifcopenshell.geom
+#These functions can be outdated since integration into the ROS environment, please go to the map generation folder for the newest versions
 from additional_functions import *
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
