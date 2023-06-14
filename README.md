@@ -117,10 +117,7 @@ The server code --> [server](server)
 
 
 ### Computer/software
-
-
-
-The slicing code --> [Slicing](Slicing)
+For all the code relating to the software part please refer to the map generation directory.
 
 The map generation code --> [map_generation](map_generation)
 
