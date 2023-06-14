@@ -56,7 +56,11 @@ and the JSON is the same as for select API:
 In order to setup the database you should download the graphDB software. Before running a server, you should run graphDB software. The repository has to be named `Project` in the GraphDB. You have to provide ttl file to repository in graphDB, which can be generated using IFCtoLBD code.
 
 After making the repository named `Project`, next thing is adding a ttl file. To make a ttl file use a script `IFCtoLBD/IFCtoLBDWGeometry.py` and provide a path to the ifc file (at the end of the file there are two variables `folder` and `filename`, which has to be changed). In the same folder the new ttl file will be generated. Look at the example to the second and third line.
+
 ![example](path.png)
+
 In the repository `Project` you should add your ttl file. Pick the option `Upload RDF files` and navigate to the ttl file. There should appear new file and on the right side should appear option import like on the following image.
+
 ![example](example1.png)
+
 After clicking the import button pick the `The default graph` option and import the data. The data should appear in the option `Graph overview` under the `Explore` section. Enjoy your time with the server and GraphDB :).
