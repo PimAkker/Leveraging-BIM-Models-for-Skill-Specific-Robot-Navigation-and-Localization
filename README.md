@@ -74,7 +74,7 @@ We know this is strange, but this is the onyl way we could get it to install. Th
 
 
 # Running the demo
-The demo uses all the different parts of the project. Please very carefully follow the installation instructions above. We are not generating new TTL files for this but using the one that are already in the repository. To create a new TTL please follow the instructions in the README of the map_generation directory.
+The demo uses all the different parts of the project except TTL creation. Please very carefully follow the installation instructions above. We are not generating new TTL files for this but using the one that are already in the repository. To create a new TTL please follow the instructions in the README of the map_generation directory.
 
 Note that if we use <> you have to fill in your own information like so. ``<fill your own path>``
 

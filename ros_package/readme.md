@@ -1,4 +1,4 @@
-Hi, this is the readme for running the ROS packages of this project.
+Hi, this is the readme for running the ROS packages of this project. Note that the ros part of this project is based on the rosbot husarion tutorial. For more information please refer to the [rosbot husarion tutorial](https://husarion.com/tutorials/ros-tutorials/5-running-ros-on-multiple-machines/).
 
 ## Requirements
 
