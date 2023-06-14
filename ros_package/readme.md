@@ -18,7 +18,7 @@ Some of these are difficult to install for the correct version, please read thei
 
 ## Getting started
 
-Because there are unrelated files in this repository you need a seperate catkin workspace for this project. You can create one with the following commands. Please look at the [ROS tutorials](http://wiki.ros.org/ROS/Tutorials) if you are not familiar with catkin workspaces.
+Because there are unrelated files in this repository you need a separate catkin workspace for this project. You can create one with the following commands. Please look at the [ROS tutorials](http://wiki.ros.org/ROS/Tutorials) if you are not familiar with catkin workspaces.
 
 The workspace should be in <b>another folder to the ITP_project</b> you just have presumably already cloned.
 
@@ -57,7 +57,7 @@ To now run the simulation:
 
 ## How to run map_delta.py
 
-This function calculates the differences between the given map and the laserscan. It retrieves the map from the server, the laserscan, find the differences between the two and updates the map on the server. It also reloads teh map on the server so that it can be used by the navigation stack.
+This function calculates the differences between the given map and the laser scan. It retrieves the map from the server, the laser scan, find the differences between the two and updates the map on the server. It also reloads the map on the server so that it can be used by the navigation stack.
 
 Note that this function only runs when, acml_and_path.launch, the graphdb and the server code are all running. If one of these are not running the function will probably get stuck. 
 
@@ -72,12 +72,12 @@ All commands that can be used with map_delta:
 | Argument              | Default | Input type | Description                                                                                                 |
 |-----------------------|---------|------------|-------------------------------------------------------------------------------------------------------------|
 |large_map           | False   | Bool       | If true this will clip the map to the max size of the laser scan, useful for large maps                     |
-|plot_transformed    | False   | Bool       | Plot the laserscan and the transformed laserscan (VERY SLOW! only for debugging)                            |
-|plot_delta          | False   | Bool       | Plot the map and the laserscan with the points that are not on the map (VERY SLOW! only for debugging)      |
-|closeness_threshold   | 0.1     | float      | How close a laserscan point must be to any point on the given map to be considered part of the map |
+|plot_transformed    | False   | Bool       | Plot the laser scan and the transformed laser scan (VERY SLOW! only for debugging)                            |
+|plot_delta          | False   | Bool       | Plot the map and the laser scan with the points that are not on the map (VERY SLOW! only for debugging)      |
+|closeness_threshold   | 0.1     | float      | How close a laser scan point must be to any point on the given map to be considered part of the map |
 
 NOTE: these values can also be changed in the code itself.
 
-If you wish to look at or make changes to map_delta.py, simply naviage to: 
+If you wish to look at or make changes to map_delta.py, simply navigate to: 
     
     ``<ITP-repo-path>/ros_package/rosbot_description/src/rosbot_navigation/map_delta.py``
