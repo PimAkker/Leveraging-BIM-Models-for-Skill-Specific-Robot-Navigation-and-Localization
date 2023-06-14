@@ -1,3 +1,4 @@
+#These functions can be outdated since integration into the ROS environment, please go to the map generation folder for the newest versions
 from pymesh.boolean import boolean
 from pymesh.misc import Quaternion
 from pymesh.meshutils import generate_box_mesh, separate_mesh, remove_isolated_vertices, merge_meshes
