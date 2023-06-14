@@ -1,7 +1,8 @@
 <launch>
 
   <!-- Map Server Arguments -->
+
   <node name="map_server_nav" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/navigation_map.yaml" />
-  <remap from="nav_map" to="nav_map" />
+  <remap from="map" to="nav_map" />
   <node name="map_server_loc" pkg="map_server" type="map_server" args="$(find rosbot_navigation)/maps/localization_map.yaml" />
-  </launch>
+   </launch>

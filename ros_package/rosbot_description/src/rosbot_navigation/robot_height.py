@@ -47,7 +47,7 @@ def calculate_height_recursive(element, height_map, root, height_stl):
     height_stl[element.attrib["name"]] = height
     return height
 
-def calculate_height(urdf_file):
+def calculate_robot_height(urdf_file):
     """
     Calculates the height of the robot.
 
@@ -83,9 +83,37 @@ def calculate_height(urdf_file):
     largest_height = max(height_stl.values())
     
     return largest_height
+def get_sensor_height(robot_urdf):
+    """ Extracts the height from the URDF file.
+
+    robot_urdf: the path for the urdf of the robot.
+
+    This code assumes that the parent of the laser in the xacro is link, not a joint.
+    """
+    tree = ET.parse(robot_urdf)
+    root = tree.getroot()
+    joint = root.findall(".//joint[@name='rplidar_joint']")[0]#.find('origin')
+    origin = joint.find('origin').get('xyz').split()
+    z = float(origin[2])
+    
+    parent_name = root.find(".//joint[@name='rplidar_joint']/parent[@link]")
+    while parent_name is not None:
+        temp = parent_name.get('link')
+        parent_link = root.find(".//link[@name='" + temp +"']")
+        if parent_link is not None:
+            pose = parent_link.find('pose').text.split()
+            height = pose[2]
+            z += float(height)
+            parent_name = parent_link.find('parent[@link]')
+        else:
+            break
+    
+    return z
+
+
 
 if  __name__ == "__main__":
-    print(calculate_height("ros_package/rosbot_description/src/rosbot_description/urdf/rosbot.xacro"))
+    print(calculate_robot_height("ros_package/rosbot_description/src/rosbot_description/urdf/rosbot.xacro"))
     # mesh = pymesh.load_mesh("ros_package/rosbot_description/src/rosbot_description/meshes/astra.stl")
 
     # # Get the size of the mesh

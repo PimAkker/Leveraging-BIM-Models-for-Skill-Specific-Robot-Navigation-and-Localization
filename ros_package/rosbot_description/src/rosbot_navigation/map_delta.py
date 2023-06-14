@@ -20,7 +20,7 @@ from scipy.cluster.hierarchy import fclusterdata
 import yaml
 import argparse 
 import time
-import roslaunch
+from robot_height import *
 
 parser = argparse.ArgumentParser(description='Calculate the map delta')
 parser.add_argument('--large_map', default=False, type=bool,help='If true this will clip the map to the max size of the laser scan, usefull for large maps')
@@ -37,6 +37,10 @@ plot_delta_bool = args.plot_delta
 update_ratio_threshold = args.update_ratio
 update_counter = 0
 update_counter_threshold = 5
+sensor_height = get_sensor_height(r"ros_package/rosbot_description/src/rosbot_description/urdf/rosbot.xacro")
+#retreive the height from the xacro file
+
+robot_height = calculate_robot_height(r"ros_package/rosbot_description/src/rosbot_description/urdf/rosbot.xacro")
 
 
 def scan_callback(scan):
@@ -73,12 +77,12 @@ def scan_callback(scan):
         # #push changes to the server
         for i in range(square_corners.shape[0]):
             update_server(square_corners[i], 0.2)
-        sensor_height = 0.2
-        robot_height = 0.6
+
+        
         # #update the map for later retrieval
         linemap_server(sensor_height, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "plane")
         linemap_server(robot_height, "PREFIX props: <https://w3id.org/props#> SELECT ?faces ?verts ?T ?edges WHERE {?inst props:Reference 'Generic-wall-for-test' . ?inst props:Verts ?verts . ?inst props:Faces ?faces . ?inst props:T ?T . ?inst props:Edges ?edges}", "volume")
-        pdb.set_trace() 
+        
 
 
     
@@ -293,7 +297,6 @@ def plot_delta(map_coor, cloud_tf, clusters, square_info, corners):
     plt.legend()
    
     plt.title("found {} objects not on map".format(clusters.shape[0]))
-    pdb.set_trace()
     plt.pause(1)
     plt.close()
 
