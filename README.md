@@ -69,7 +69,7 @@ Please take a look at the requirements.txt file in the root of the repository fo
 - Follow the instructions until the <b> building pymesh </b> part of the documentation.
 - Here first download cmake <b>but</b> follow the Build with Setuptools method. 
 
-We know this is strange, but this is the onyl way we could get it to install. This installation process takes a long times $\approx 30$ min.
+We know this is strange, but this is the only way we could get it to install. This installation process takes a long times $\approx 30$ min.
 
 
 
@@ -80,20 +80,20 @@ Note that if we use <> you have to fill in your own information like so. ``<fill
 
 To start running the demo please follow the instructions below:
 - With the ubuntu application manager start graphdb. 
-- Make sure that the you have loaded the correct ttl file into graphdb with the name Project. For the full instructions <b> Setup of database </b> part of the README in the ``server`` directory.
+- Make sure that you have loaded the correct ttl file into graphdb with the name Project. For the full instructions <b> Setup of database </b> part of the README in the ``server`` directory.
 - Open a terminal and navigate to the server directory.
  ``cd <path to repository>/server``
 - Run the server with the command: ```go run .``` if this works you should get the message ``server running``
 - Open a new terminal and navigate to the map_generation director 
 and source the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``. 
 - Start gazebo and rviz: ``roslaunch rosbot_description rosbot_rviz.launch``
-- Open a new terminal and and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
 - Start the amcl and path planning nodes:  ``roslaunch rosbot_navigation amcl_and_path.launch`` 
-- Open a new terminal and and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
 - Start the map delta script with the command: ``rosrun rosbot_navigation map_delta.pymap_delta.py --plot_delta True``
 - If you add an object to the gazebo environment you should see the map delta script detect this and update the map.
 - To display these changes in rviz restart the map server: 
-- Open a new terminal and and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
 - Restart the map_server ``roslaunch rosbot_navigation map_launcher.launch``
 - Now the changes detected by the map delta script should be visible in rviz.
 
