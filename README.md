@@ -104,7 +104,7 @@ and source the setup.sh file with the command: ``source <catkin_workspace>/devel
 
 ### Pre-processing
 
-The pre-processing setps converts the IFC files to TTL files to then store them in the server. For more information please refer to the README in the specific directory.
+The pre-processing steps converts the IFC files to TTL files to then store them in the server. For more information please refer to the README in the specific directory.
 
 The pre-processing code --> [IFCtoLBD](IFCtoLBD) 
 
