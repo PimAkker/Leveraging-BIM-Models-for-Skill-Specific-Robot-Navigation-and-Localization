@@ -80,35 +80,6 @@ We know this is strange, but this is the only way we could get it to install. Th
 
 
 
-# Running the demo
-The demo uses all the different parts of the project except TTL creation. Please very carefully follow the installation instructions above. We are not generating new TTL files for this but using the one that are already in the repository. To create a new TTL please follow the instructions in the README of the map_generation directory.
-
-Note that if we use <> you have to fill in your own information like so. ``<fill your own path>``
-
-To start running the demo please follow the instructions below:
-- With the ubuntu application manager start graphdb. 
-- Make sure that you have loaded the correct ttl file into graphdb with the name Project. For the full instructions <b> Setup of database </b> part of the README in the ``server`` directory.
-- Open a terminal and navigate to the server directory.
- ``cd <path to repository>/server``
-- Run the server with the command: ```go run .``` if this works you should get the message ``server running``
-- Open a new terminal and navigate to the map_generation director 
-and source the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``. 
-- Start gazebo and rviz: ``roslaunch rosbot_description rosbot_rviz.launch``
-- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
-- Start the amcl and path planning nodes:  ``roslaunch rosbot_navigation amcl_and_path.launch`` 
-- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
-- Start the map delta script with the command: ``rosrun rosbot_navigation map_delta.pymap_delta.py --plot_delta True``
-- If you add an object to the gazebo environment you should see the map delta script detect this and update the map.
-- To display these changes in rviz restart the map server: 
-- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
-- Restart the map_server ``roslaunch rosbot_navigation map_launcher.launch``
-- Now the changes detected by the map delta script should be visible in rviz.
-
-
-
-
-
-
 ### Pre-processing
 
 The pre-processing steps converts the IFC files to TTL files to then store them in the server. For more information please refer to the README in the specific directory.
@@ -134,5 +105,34 @@ The map generation code --> [map_generation](map_generation)
 The robot control part includes the implementation of ROS packages to make the robot navigate and localize in the building environments. For more information please refer to the README in the specific directory.
 
 The robot control --> [ros_package](ros_package)
+
+
+
+# Running the demo
+The demo uses all the different parts of the project except TTL creation. Please very carefully follow the installation instructions above. We are not generating new TTL files for this but using the one that are already in the repository. To create a new TTL please follow the instructions in the README of the map_generation directory.
+
+Note that if we use <> you have to fill in your own information like so. ``<fill your own path>``
+
+To start running the demo please follow the instructions below:
+- With the ubuntu application manager start graphdb. 
+- Make sure that you have loaded the correct ttl file into graphdb with the name Project. For the full instructions <b> Setup of database </b> part of the README in the ``server`` directory.
+- Open a terminal and navigate to the server directory.
+ ``cd <path to repository>/server``
+- Run the server with the command: ```go run .``` if this works you should get the message ``server started``
+- Open a new terminal and navigate to the map_generation director 
+and source the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``. 
+- Start gazebo and rviz: ``roslaunch rosbot_description rosbot_rviz.launch``
+- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Start the amcl and path planning nodes:  ``roslaunch rosbot_navigation amcl_and_path.launch`` 
+- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Start the map delta script with the command: ``rosrun rosbot_navigation map_delta.py --plot_delta True``
+- If you add an object to the gazebo environment you should see the map delta script detect this and update the map.
+- To display these changes in rviz restart the map server: 
+- Open a new terminal and source again the setup.sh file with the command: ``source <catkin_workspace>/devel/setup.sh``.
+- Restart the map_server ``roslaunch rosbot_navigation map_launcher.launch``
+- Now the changes detected by the map delta script should be visible in rviz.
+
+
+
 
 
