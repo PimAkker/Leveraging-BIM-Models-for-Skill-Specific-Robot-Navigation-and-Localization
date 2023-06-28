@@ -4,7 +4,7 @@
 
 ## Description
 
-Detailed 3D Building Information Models are available in Revit. Standard practice in the building industry makes such BIM models available. While Revit is a proprietary (closed) commercial BIM tool, a neutral data model and file format is available as well, namely the Industry Foundation Classes (IFC). Such information needs to be made available to robots to ease their localisation and navigation. That is your challenge. This is tested in a barn environment, where agricultural robots need to be able to navigate in their environment and perform actions with cattle present inside the barn. This challenge is based on earlier work, that can be previewed here: https://www.youtube.com/watch?v=b7LKU3C6gCQ.
+Detailed 3D Building Information Models are available in Revit. Standard practice in the building industry makes such BIM models available. While Revit is a proprietary (closed) commercial BIM tool, a neutral data model and file format is available as well, namely the Industry Foundation Classes (IFC). Such information needs to be made available to robots to ease their localisation and navigation. That is the challenge. This is tested in a barn environment, where agricultural robots need to be able to navigate in their environment and perform actions with cattle present inside the barn. This challenge is based on earlier work, that can be previewed here: https://www.youtube.com/watch?v=b7LKU3C6gCQ.
 
 The structure of the project is detailed bellow, for more information on the challenge scroll to the Project Assignment part of the README.
 
@@ -19,7 +19,7 @@ For more information about this repository and the work it contains please read 
 
 This project is mainly divided into 4 parts, the pre-processing, the server, the computer/software and the robot control.
 
-The inputs to the poject structure, namely the IFC files and the URDF files. 
+The inputs to the project structure, namely the IFC files and the URDF files. 
 These can be found in the following directories:
 
 IFC files --> [BIM_models](BIM_models), where you will find the IFC of atlas, a barn and the test_setup which was used for this project.
@@ -35,6 +35,8 @@ This  project requires a lot of different types of software. Software that it is
 - python 2.7
 - pip2 
 
+Note that these are the packages that this repository has been tested with, it is unlikely to work in ubuntu versions higher than 18.04. 
+
 
 
 ## Installation
@@ -47,9 +49,13 @@ To install Go please follow the instructions on the official website: https://go
 
 To install Graphdb please follow the instructions on the official website: https://www.ontotext.com/products/graphdb/download/.
 
+For further instructions on installing the server software please look at the README in the server directory. 
+
 To install ROS melodic please follow the instructions on the official website: http://wiki.ros.org/melodic/Installation/Ubuntu.
+For the setup of this repository with ROS please look at the ros_package directory README. 
 
 python2.7 should be installed by default on Ubuntu 18.04. Download pip through the official documentation: https://pip.pypa.io/en/stable/installation/. Make sure to download pip for python2.7 and not for python3. 
+
 
 
 ### python packages installation
