@@ -14,3 +14,7 @@ This version of the IFCtoLBD script also initializes the database with the geome
 
 An example of how to use the function:
 convertIFCSPFtoTTL('./simple_room_v5.ifc', './v5.ttl')
+
+## Possible errors
+
+If you get an error message saying: "module 'ífcopenshell' has no attribute 'geom'", try putting import ifcopenshell.geom at the top of the script.
